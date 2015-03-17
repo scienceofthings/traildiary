@@ -1,0 +1,24 @@
+Ghyneck\MapBundle\Entity\Tour:
+    type: entity
+    table: null
+    repositoryClass: Ghyneck\MapBundle\Entity\TourRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+        gpxfile:
+            type: string
+            length: 255
+        markerlat:
+            type: float
+        markerlon:
+            type: float
+    lifecycleCallbacks: {  }

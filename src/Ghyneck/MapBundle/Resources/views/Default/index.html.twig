@@ -1,0 +1,65 @@
+{# jQuery #}
+{% javascripts 'bundles/bmatznerjquery/js/jquery.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{# jQuery.ui #}
+{% stylesheets 'bundles/bmatznerjqueryui/css/ui-lightness/jquery-ui.min.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% javascripts 'bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{# leaflet #}
+{% stylesheets 'bundles/bmatznerleaflet/css/leaflet.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% javascripts 'bundles/bmatznerleaflet/js/leaflet.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{# own Css and JS #}
+{% stylesheets '@MapBundle/Resources/public/css/main.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% javascripts '@MapBundle/Resources/public/js/mapWidget.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script type="text/javascript">
+$( document ).ready(function() {
+        $( "#mapContainer" ).leafletwidget({
+            "trackPoints" : {{ trackPointsInLeafletFormat }}
+        });
+});
+</script>
+
+
+<h1>Hallo</h1>
+
+
+Sie haben gekauft:
+{% for product in products %}
+    {{ product.name }}
+{% endfor %}
+
+
+
+
+<div id="mapContainer" data-tracks="">
+    <div id="map">        
+    </div>
+</div>
+ 
+ 
+    
+		
+ 
+
+
+
+
+
+
+    
+
