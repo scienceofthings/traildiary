@@ -102,7 +102,7 @@ class Tour
      * Set gpxfile
      *
      * @param UploadedFile $gpxfile     
-     */
+     */     
     public function setGpxFile($gpxfile)
     {
         $this->gpxfile = $gpxfile;       
@@ -163,40 +163,6 @@ class Tour
     {
         return $this->markerlon;
     }
-    
-    public function upload() {
-        // the file property can be empty if the field is not required
-        if (null === $this->getGpxFile()) {
-            return;
-        }
 
-        // use the original file name here but you should
-        // sanitize it at least to avoid any security issues
-        // move takes the target directory and then the
-        // target filename to move to
-        $this->getGpxFile()->move(
-                $this->getUploadRootDir(), $this->getGpxFile()->getClientOriginalName()
-        );
-
-        // set the path property to the filename where you've saved the file
-        $this->path = $this->getGpxFile()->getClientOriginalName();
-
-        // clean up the file property as you won't need it anymore
-        $this->file = null;
-    }
-    
-    protected function getUploadRootDir()
-    {
-        // the absolute directory path where uploaded
-        // documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-    
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'uploads/documents';
-    }
 
 }

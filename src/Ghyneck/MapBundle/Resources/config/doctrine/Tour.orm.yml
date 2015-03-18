@@ -13,12 +13,15 @@ Ghyneck\MapBundle\Entity\Tour:
             type: string
             length: 255
         description:
-            type: text
-        gpxfile:
-            type: string
-            length: 255
+            type: text        
         markerlat:
             type: float
         markerlon:
             type: float
+    oneToOne:
+        gpxfile:
+            targetEntity: Gpxfile            
+            joinColumn:
+                name: gpxfile_id
+                referencedColumnName: id
     lifecycleCallbacks: {  }

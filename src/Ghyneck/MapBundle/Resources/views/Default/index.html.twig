@@ -35,31 +35,13 @@ $( document ).ready(function() {
 </script>
 
 
-<h1>Hallo</h1>
-
-
-Sie haben gekauft:
-{% for product in products %}
-    {{ product.name }}
-{% endfor %}
-
-
-
-
 <div id="mapContainer" data-tracks="">
     <div id="map">        
     </div>
 </div>
- 
- 
-    
-		
- 
 
 
 
-
-
-
-    
-
+<a href="{{ path('tour') }}">
+            Alle zeigen
+</a>
