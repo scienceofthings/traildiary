@@ -27,7 +27,7 @@ class Tour
     private $description;
 
     /**
-     * @var string
+     * @var Gpxfile
      */
     private $gpxfile;
 
@@ -101,7 +101,7 @@ class Tour
     /**
      * Set gpxfile
      *
-     * @param UploadedFile $gpxfile     
+     * @param Gpxfile $gpxfile     
      */     
     public function setGpxFile($gpxfile)
     {
@@ -111,7 +111,7 @@ class Tour
     /**
      * Get gpxfile
      *
-     * @return UploadedFile
+     * @return Gpxfile
      */
     public function getGpxFile()
     {

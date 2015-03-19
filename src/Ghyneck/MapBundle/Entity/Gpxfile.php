@@ -25,7 +25,7 @@ class Gpxfile
     private $path;
     
     /**
-     * @var string
+     * @var UploadedFile
      */
     private $file;
     
@@ -84,7 +84,7 @@ class Gpxfile
     /**
      * Get file
      *
-     * @return string 
+     * @param UploadedFile $file
      */
     public function setFile($file)
     {
@@ -94,7 +94,7 @@ class Gpxfile
     /**
      * Get file
      *
-     * @return string 
+     * @return UploadedFile
      */
     public function getFile()
     {

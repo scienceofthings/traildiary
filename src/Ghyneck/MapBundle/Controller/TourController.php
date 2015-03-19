@@ -41,12 +41,15 @@ class TourController extends Controller
 
         if ($form->isValid()) {
             $tour->setMarkerlat(0.0);
-            $tour->setMarkerlon(0.0);
-            $tour->upload();
-            $ghy = $tour->getGpxFile();
-            $tour->setGpxFile($tour->getGpxFile());
+            $tour->setMarkerlon(0.0);             
+            $gpxFile = new \Ghyneck\MapBundle\Entity\Gpxfile();
+            $gpxFile->setFile($tour->getGpxFile());
+            $gpxFile->setName("Datei1");
+            $tour->setGpxFile($gpxFile);            
+            //$tour->setGpxFile($tour->getGpxFile());
             $em = $this->getDoctrine()->getManager();
             $em->persist($tour);
+            $em->persist($gpxFile);
             $em->flush();
 
             return $this->redirect($this->generateUrl('tour_show', array('id' => $tour->getId())));
