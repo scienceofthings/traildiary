@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TourType extends AbstractType
+class GpxfileType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,10 +14,8 @@ class TourType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('title')
-            ->add('description')
-            ->add('gpxfile', new GpxfileType());
+        $builder            
+            ->add('file', 'file');
     }
     
     /**
@@ -26,7 +24,7 @@ class TourType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ghyneck\MapBundle\Entity\Tour'
+            'data_class' => 'Ghyneck\MapBundle\Entity\Gpxfile'
         ));
     }
 
@@ -35,6 +33,6 @@ class TourType extends AbstractType
      */
     public function getName()
     {
-        return 'ghyneck_mapbundle_tour';
+        return 'ghyneck_mapbundle_gpxfile';
     }
 }

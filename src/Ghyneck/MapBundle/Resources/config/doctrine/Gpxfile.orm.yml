@@ -9,12 +9,9 @@ Ghyneck\MapBundle\Entity\Gpxfile:
             generator:
                 strategy: AUTO
     fields:
-        name:
+        filename:
             type: string
-            length: 255
-        path:
-            type: string
-            length: 255
+            length: 255        
     oneToOne:
         tour:
             targetEntity: Tour            

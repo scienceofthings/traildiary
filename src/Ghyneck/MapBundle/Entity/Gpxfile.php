@@ -17,7 +17,7 @@ class Gpxfile
     /**
      * @var string
      */
-    private $name;
+    private $filename;
 
     /**
      * @var string
@@ -48,37 +48,24 @@ class Gpxfile
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $fileName
      * @return Gpxfile
      */
-    public function setName($name)
+    public function setFileName($fileName)
     {
-        $this->name = $name;
+        $this->filename = $fileName;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get fileName
      *
      * @return string 
      */
-    public function getName()
+    public function getFileName()
     {
-        return $this->name;
-    }
-
-    /**
-     * Set path
-     *
-     * @param string $path
-     * @return Gpxfile
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-
-        return $this;
+        return $this->filename;
     }
 
     /**
@@ -125,27 +112,15 @@ class Gpxfile
     
     
     /**
-     * Get path
-     *
-     * @return string 
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-    
-    
-    
-    /**
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
     public function preUpload()
-    {
+    {        
         if (null !== $this->getFile()) {
             // do whatever you want to generate a unique name
             $filename = sha1(uniqid(mt_rand(), true));
-            $this->path = $filename.'.'.$this->getFile()->guessExtension();
+            $this->setFileName($filename.'.'.$this->getFile()->guessExtension());
         }
     }
 
@@ -155,6 +130,8 @@ class Gpxfile
      */
     public function upload()
     {
+        $ghy1 = $this->getFile();
+        $ghy2 = $this->getFileName();
         if (null === $this->getFile()) {
             return;
         }
@@ -162,7 +139,7 @@ class Gpxfile
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
-        $this->getFile()->move($this->getUploadRootDir(), $this->path);
+        $this->getFile()->move($this->getUploadRootDir(), $this->getFileName());
 
         // check if we have an old image
         if (isset($this->temp)) {

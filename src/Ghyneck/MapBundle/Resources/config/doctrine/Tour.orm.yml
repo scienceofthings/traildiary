@@ -23,5 +23,5 @@ Ghyneck\MapBundle\Entity\Tour:
             targetEntity: Gpxfile            
             joinColumn:
                 name: gpxfile_id
-                referencedColumnName: id
+                referencedColumnName: id            
     lifecycleCallbacks: {  }
