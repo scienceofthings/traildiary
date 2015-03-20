@@ -43,9 +43,7 @@ class TourController extends Controller
             $tour->setMarkerlat(0.0);
             $tour->setMarkerlon(0.0);                                   
             $em = $this->getDoctrine()->getManager();
-            $em->persist($tour);
-            $gpxFile = $tour->getGpxFile();
-            $em->persist($gpxFile);
+            $em->persist($tour);            
             $em->flush();
 
             return $this->redirect($this->generateUrl('tour_show', array('id' => $tour->getId())));
