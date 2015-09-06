@@ -10,4 +10,6 @@
 /composer.lock
 /vendor/
 /web/bundles/
-/nbproject
+
+/* IDE files */
+.idea

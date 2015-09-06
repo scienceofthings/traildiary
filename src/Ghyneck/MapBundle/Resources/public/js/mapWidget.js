@@ -1,12 +1,9 @@
 $(function () {
-// the widget definition, where "custom" is the namespace,
-// "colorize" the widget name
     $.widget("custom.leafletwidget", {
     // default options
         options: {
             mapId: 'map',
-            green: 0,
-            blue: 0,
+            imagePath: null,            
             trackPoints: null,
             // callbacks
             change: null,
@@ -40,15 +37,18 @@ $(function () {
             }
         },
         _drawTracks: function(trackPointsInLeafletFormat) {
-            var map = L.map(this.options.mapId).setView([47.956768, 7.893452], 13);
+            var map = L.map(this.options.mapId).setView([47.923672, 7.895910], 13);
             L.tileLayer(                        
                         'http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
                             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
                             maxZoom: 18
                         })
             .addTo(map);
+            L.Icon.Default.imagePath = this.options.imagePath;
+            L.marker([47.923672, 7.895910]).addTo(map);
+            
             var pointList = trackPointsInLeafletFormat;               
-                    L.polyline(pointList, {color: 'red'}).addTo(map);
+            L.polyline(pointList, {color: 'red'}).addTo(map);
         },
         // events bound via _on are removed automatically
         // revert other modifications here

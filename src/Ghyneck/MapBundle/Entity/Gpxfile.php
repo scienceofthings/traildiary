@@ -19,11 +19,11 @@ class Gpxfile
      */
     private $filename;
 
-    /**
+    /*
      * @var string
      */
-    private $path;
-    
+    private $clientOriginalFileName;
+            
     /**
      * @var UploadedFile
      */
@@ -67,6 +67,30 @@ class Gpxfile
     {
         return $this->filename;
     }
+    
+        /**
+     * Set name
+     *
+     * @param string $clientOriginalFileName
+     * @return Gpxfile
+     */
+    public function setClientOriginalFileName($clientOriginalFileName)
+    {
+        $this->clientOriginalFileName = $clientOriginalFileName;
+
+        return $this;
+    }
+
+    /**
+     * Get fileName
+     *
+     * @return string 
+     */
+    public function getClientOriginalFileName()
+    {
+        return $this->clientOriginalFileName;
+    }
+        
 
     /**
      * Get file
@@ -120,8 +144,9 @@ class Gpxfile
         if (null !== $this->getFile()) {
             // do whatever you want to generate a unique name
             $filename = sha1(uniqid(mt_rand(), true));
-            $this->setFileName($filename.'.'.$this->getFile()->guessExtension());
+            $this->setFileName($filename.'.gpx');
         }
+        $this->setClientOriginalFileName($this->getFile()->getClientOriginalName());
     }
 
     /**
@@ -130,16 +155,14 @@ class Gpxfile
      */
     public function upload()
     {
-        $ghy1 = $this->getFile();
-        $ghy2 = $this->getFileName();
         if (null === $this->getFile()) {
             return;
         }
 
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $this->getFile()->move($this->getUploadRootDir(), $this->getFileName());
+        // the entity from being persisted to the database on error        
+        $this->getFile()->move($this->getUploadRootDir(), $this->getFileName());        
 
         // check if we have an old image
         if (isset($this->temp)) {
@@ -147,20 +170,26 @@ class Gpxfile
             unlink($this->getUploadRootDir().'/'.$this->temp);
             // clear the temp image path
             $this->temp = null;
-        }
-        $this->file = null;
+        }        
     }
 
     /**
      * @ORM\PostRemove()
      */
     public function removeUpload()
-    {
-        $file = $this->getAbsolutePath();
-        if ($file) {
-            unlink($file);
+    {        
+        $fileWithAbsolutePath = $this->getFileWithAbsolutePath();        
+        if ($fileWithAbsolutePath) {
+            unlink($fileWithAbsolutePath);
         }
     }      
+    
+    public function getFileWithAbsolutePath()
+    {              
+        return null === $this->getFileName()
+            ? null
+            : $this->getUploadRootDir().'/'.$this->getFileName();
+    }
     
     protected function getUploadRootDir()
     {

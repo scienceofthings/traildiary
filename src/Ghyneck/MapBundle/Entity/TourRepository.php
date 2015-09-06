@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class TourRepository extends EntityRepository
 {
+    
+    public function findAll()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT t FROM MapBundle:Tour t'
+            )
+            ->getResult();
+    }
 }

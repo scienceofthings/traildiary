@@ -20,9 +20,6 @@ Ghyneck\MapBundle\Entity\Tour:
             type: float
     oneToOne:
         gpxfile:
-            targetEntity: Gpxfile     
-            joinColumn:
-                name: gpxfile_id
-                referencedColumnName: id            
-            cascade: [persist]
+            targetEntity: Gpxfile                 
+            cascade: [all]
     lifecycleCallbacks: {  }

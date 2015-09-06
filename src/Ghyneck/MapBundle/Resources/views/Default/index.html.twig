@@ -29,7 +29,8 @@
 <script type="text/javascript">
 $( document ).ready(function() {
         $( "#mapContainer" ).leafletwidget({
-            "trackPoints" : {{ trackPointsInLeafletFormat }}
+            "trackPoints" : {{ trackPointsInLeafletFormat }},
+            "imagePath" : "{{ asset('bundles/map/images/') }}"
         });
 });
 </script>
