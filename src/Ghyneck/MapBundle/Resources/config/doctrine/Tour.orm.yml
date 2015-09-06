@@ -13,7 +13,10 @@ Ghyneck\MapBundle\Entity\Tour:
             type: string
             length: 255
         description:
-            type: text        
+            type: text
+        gpxFileName:
+            type: string
+            length: 255
         markerlat:
             type: float
         markerlon:
