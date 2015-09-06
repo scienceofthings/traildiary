@@ -1,6 +1,6 @@
 Ghyneck\MapBundle\Entity\Tour:
     properties:
-        gpxfile:            
+        gpxFile:            
             - Valid: ~                
 Ghyneck\MapBundle\Entity\Gpxfile:
     properties:                

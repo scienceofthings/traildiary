@@ -4,7 +4,8 @@ namespace Ghyneck\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Tour
@@ -27,9 +28,16 @@ class Tour
     private $description;
 
     /**
-     * @var Gpxfile
+     * @var string
      */
-    private $gpxfile;
+    private $gpxFileName;
+
+    /*
+     * @Vich\UploadableField(mapping="gpx_file", fileNameProperty="gpxFileName")
+     *
+     * @var File
+     */
+    private $gpxFile;
 
     /**
      * @var float
@@ -99,23 +107,42 @@ class Tour
     }
 
     /**
-     * Set gpxfile
+     * Set gpxFile
      *
-     * @param Gpxfile $gpxfile     
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $gpxFile
      */     
-    public function setGpxFile($gpxfile)
+    public function setGpxFile($gpxFile)
     {
-        $this->gpxfile = $gpxfile;       
+        $this->gpxFile = $gpxFile;
+        if($gpxFile){
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
     /**
-     * Get gpxfile
+     * Get gpxFile
      *
      * @return Gpxfile
      */
     public function getGpxFile()
     {
-        return $this->gpxfile;
+        return $this->gpxFile;
+    }
+
+    /*
+     * @param string $gpxFileName
+     */
+    public function setGpxFileName($gpxFileName)
+    {
+        $this->gpxFileName = $gpxFileName;
+    }
+
+    /*
+     * @return string
+     */
+    public function getGpxFileName()
+    {
+        return $this->gpxFileName;
     }
 
     /**

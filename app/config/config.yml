@@ -71,3 +71,10 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        gpx_file:
+            uri_prefix:         /gpx
+            upload_destination: %kernel.root_dir%/../web/gpx

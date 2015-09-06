@@ -20,8 +20,9 @@ class AppKernel extends Kernel
             new Ghyneck\MapBundle\MapBundle(),
             new Bmatzner\JQueryUIBundle\BmatznerJQueryUIBundle(),
             new Bmatzner\JQueryBundle\BmatznerJQueryBundle(),
-            new Bmatzner\LeafletBundle\BmatznerLeafletBundle(),        
-	);
+            new Bmatzner\LeafletBundle\BmatznerLeafletBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle()
+        );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();

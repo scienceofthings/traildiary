@@ -1,5 +1,5 @@
 {
-    "name": "vagrant/playground",
+    "name": "vagrant/traildiary",
     "license": "proprietary",
     "type": "project",
     "autoload": {
@@ -23,7 +23,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
 	"bmatzner/jquery-ui-bundle": "*",
         "bmatzner/jquery-bundle": "*",
-        "bmatzner/leaflet-bundle": "~0.7"
+        "bmatzner/leaflet-bundle": "~0.7",
+        "vich/uploader-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

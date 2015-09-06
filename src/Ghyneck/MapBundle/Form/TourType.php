@@ -17,7 +17,7 @@ class TourType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('gpxfile', new GpxfileType());
+            ->add('gpxFile', 'file');
     }
     
     /**
