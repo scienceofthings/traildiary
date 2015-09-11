@@ -11,6 +11,7 @@
                 <th>Description</th>                
                 <th>Markerlat</th>
                 <th>Markerlon</th>
+                <th>Gpx</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -22,6 +23,7 @@
                 <td>{{ entity.description }}</td>                
                 <td>{{ entity.markerlat }}</td>
                 <td>{{ entity.markerlon }}</td>
+                <td><a href="{{ vich_uploader_asset(entity, 'gpx_file') }}">GPX</a></td>
                 <td>
                 <ul>
                     <li>
