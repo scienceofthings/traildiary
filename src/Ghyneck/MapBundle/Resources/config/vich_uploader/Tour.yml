@@ -1,4 +1,4 @@
 Ghyneck\MapBundle\Entity\Tour:
-  gpx_file:
+  gpxFile:
     mapping: gpx_file
     filename_property: gpxFileName
