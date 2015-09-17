@@ -40,6 +40,11 @@ class Tour
     private $gpxFile;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $images;
+
+    /**
      * @var float
      */
     private $markerlat;
@@ -49,6 +54,14 @@ class Tour
      */
     private $markerlon;
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -189,6 +202,41 @@ class Tour
     public function getMarkerlon()
     {
         return $this->markerlon;
+    }
+
+    /**
+     * Add images
+     *
+     * @param \Ghyneck\MapBundle\Entity\TourImage $image
+     * @return Tour
+     */
+    public function addImage(TourImage $image)
+    {
+        $this->images[] = $image;
+        $image->setTour($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \Ghyneck\MapBundle\Entity\TourImage $image
+     */
+    public function removeImage(TourImage $image)
+    {
+        $this->images->removeElement($image);
+        $image->setTour(null);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 
 

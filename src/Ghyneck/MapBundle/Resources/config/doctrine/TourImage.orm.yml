@@ -1,0 +1,23 @@
+Ghyneck\MapBundle\Entity\TourImage:
+    type: entity
+    table: null
+    repositoryClass: Ghyneck\MapBundle\Entity\TourImageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        fileName:
+            type: string
+            length: 255
+    manyToOne:
+        tour:
+            targetEntity:             Tour
+            inversedBy:               images
+            joinColumn:
+            name:                 tourId
+            referencedColumnName: id
+            onDelete:             cascade
+    lifecycleCallbacks: {  }

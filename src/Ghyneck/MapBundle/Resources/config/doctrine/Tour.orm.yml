@@ -21,4 +21,9 @@ Ghyneck\MapBundle\Entity\Tour:
             type: float
         markerlon:
             type: float
+    oneToMany:
+        images:
+            targetEntity: TourImage
+            mappedBy:     tour
+            cascade:      ["persist", "merge"]
     lifecycleCallbacks: {  }
