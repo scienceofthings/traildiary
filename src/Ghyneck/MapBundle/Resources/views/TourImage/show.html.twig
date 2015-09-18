@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Tour</h1>
+    <h1>TourImage</h1>
 
     <table class="record_properties">
         <tbody>
@@ -10,32 +10,24 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
+                <th>AltText</th>
+                <td>{{ entity.altText }}</td>
             </tr>
             <tr>
-                <th>Description</th>
-                <td>{{ entity.description }}</td>
-            </tr>
-            <tr>
-                <th>Markerlat</th>
-                <td>{{ entity.markerlat }}</td>
-            </tr>
-            <tr>
-                <th>Markerlon</th>
-                <td>{{ entity.markerlon }}</td>
+                <th>file</th>
+                <td>{{ vich_uploader_asset(entity, 'image') }}</td>
             </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('tour') }}">
+        <a href="{{ path('tourimage') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('tour_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('tourimage_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

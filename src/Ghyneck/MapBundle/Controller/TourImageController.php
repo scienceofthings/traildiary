@@ -36,22 +36,20 @@ class TourImageController extends Controller
      */
     public function createAction(Request $request)
     {
-        $tour = new Tour();
-        $form = $this->createCreateForm($tour);
+        $tourImage = new TourImage();
+        $form = $this->createCreateForm($tourImage);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $tour->setMarkerlat(0.0);
-            $tour->setMarkerlon(0.0);                                   
             $em = $this->getDoctrine()->getManager();
-            $em->persist($tour);            
+            $em->persist($tourImage);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tour_show', array('id' => $tour->getId())));
+            return $this->redirect($this->generateUrl('tourimage_show', array('id' => $tourImage->getId())));
         }
 
         return $this->render('MapBundle:TourImage:new.html.twig', array(
-            'entity' => $tour,
+            'entity' => $tourImage,
             'form'   => $form->createView(),
         ));
     }

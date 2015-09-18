@@ -16,7 +16,7 @@ class TourImageType extends AbstractType
     {
         $builder
             ->add('altText')
-            ->add('image', 'vich_file');
+            ->add('image', 'file');
             //->add('image');
     }
 

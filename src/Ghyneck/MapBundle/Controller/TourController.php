@@ -2,6 +2,7 @@
 
 namespace Ghyneck\MapBundle\Controller;
 
+use Ghyneck\MapBundle\Entity\TourImage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -80,6 +81,11 @@ class TourController extends Controller
     public function newAction()
     {
         $entity = new Tour();
+        /*
+        $entity->addImage(
+          new TourImage()
+        );
+        */
         $form   = $this->createCreateForm($entity);
 
         return $this->render('MapBundle:Tour:new.html.twig', array(

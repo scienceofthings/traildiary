@@ -25,7 +25,12 @@ class TourType extends AbstractType
                     'download_link' => true // not mandatory, default is true
                 )
             );
-            $builder->add('tourImages', 'collection', array('type' => new TourImageType()));
+            $builder->add('tourImages', 'collection', array(
+                'type' => new TourImageType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false
+            ));
     }
     
     /**
