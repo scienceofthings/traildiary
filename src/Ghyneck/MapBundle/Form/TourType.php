@@ -5,6 +5,7 @@ namespace Ghyneck\MapBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Ghyneck\MapBundle\Entity\TourImage;
 
 class TourType extends AbstractType
 {
@@ -16,12 +17,15 @@ class TourType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('description');
-        $builder->add('gpx_file', 'vich_file', array(
-            'required'      => false,
-            'allow_delete'  => true, // not mandatory, default is true
-            'download_link' => true, // not mandatory, default is true
-        ));
+            ->add('description')
+            ->add('gpx_file', 'vich_file',
+                array(
+                    'required'      => false,
+                    'allow_delete'  => true, // not mandatory, default is true
+                    'download_link' => true // not mandatory, default is true
+                )
+            );
+            $builder->add('tourImages', 'collection', array('type' => new TourImageType()));
     }
     
     /**

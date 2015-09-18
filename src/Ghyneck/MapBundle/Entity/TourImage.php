@@ -27,7 +27,7 @@ class TourImage
     private $fileName;
 
     /**
-     * This value gets persisted
+     * This value gets not persisted
      *
      * @var File $image
      */

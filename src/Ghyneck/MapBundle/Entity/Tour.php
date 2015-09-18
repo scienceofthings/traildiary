@@ -42,7 +42,7 @@ class Tour
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $images;
+    protected $tourImages;
 
     /**
      * @var float
@@ -207,13 +207,13 @@ class Tour
     /**
      * Add images
      *
-     * @param \Ghyneck\MapBundle\Entity\TourImage $image
+     * @param \Ghyneck\MapBundle\Entity\TourImage $tourImage
      * @return Tour
      */
-    public function addImage(TourImage $image)
+    public function addImage(TourImage $tourImage)
     {
-        $this->images[] = $image;
-        $image->setTour($this);
+        $this->tourImages[] = $tourImage;
+        $tourImage->setTour($this);
 
         return $this;
     }
@@ -221,12 +221,12 @@ class Tour
     /**
      * Remove images
      *
-     * @param \Ghyneck\MapBundle\Entity\TourImage $image
+     * @param \Ghyneck\MapBundle\Entity\TourImage $tourImage
      */
-    public function removeImage(TourImage $image)
+    public function removeTourImage(TourImage $tourImage)
     {
-        $this->images->removeElement($image);
-        $image->setTour(null);
+        $this->tourImages->removeElement($tourImage);
+        $tourImage->setTour(null);
     }
 
     /**
@@ -234,7 +234,7 @@ class Tour
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getImages()
+    public function getTourImages()
     {
         return $this->images;
     }

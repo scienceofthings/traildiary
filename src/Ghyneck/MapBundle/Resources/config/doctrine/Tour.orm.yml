@@ -22,7 +22,7 @@ Ghyneck\MapBundle\Entity\Tour:
         markerlon:
             type: float
     oneToMany:
-        images:
+        tourImages:
             targetEntity: TourImage
             mappedBy:     tour
             cascade:      ["persist", "merge"]
