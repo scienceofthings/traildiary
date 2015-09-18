@@ -15,7 +15,7 @@ Ghyneck\MapBundle\Entity\TourImage:
     manyToOne:
         tour:
             targetEntity:             Tour
-            inversedBy:               images
+            inversedBy:               tourImages
             joinColumn:
             name:                 tourId
             referencedColumnName: id

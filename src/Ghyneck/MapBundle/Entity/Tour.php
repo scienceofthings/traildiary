@@ -33,8 +33,6 @@ class Tour
     private $gpxFileName;
 
     /*
-     * @Vich\UploadableField(mapping="gpx_file", fileNameProperty="gpxFileName")
-     *
      * @var File
      */
     private $gpxFile;
@@ -60,7 +58,7 @@ class Tour
      */
     public function __construct()
     {
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tourImages = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -205,7 +203,7 @@ class Tour
     }
 
     /**
-     * Add images
+     * Add tourImages
      *
      * @param \Ghyneck\MapBundle\Entity\TourImage $tourImage
      * @return Tour
@@ -219,7 +217,7 @@ class Tour
     }
 
     /**
-     * Remove images
+     * Remove tourImages
      *
      * @param \Ghyneck\MapBundle\Entity\TourImage $tourImage
      */
@@ -230,13 +228,13 @@ class Tour
     }
 
     /**
-     * Get images
+     * Get tourImages
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getTourImages()
     {
-        return $this->images;
+        return $this->tourImages;
     }
 
 
