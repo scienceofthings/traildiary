@@ -1,4 +1,4 @@
 Ghyneck\MapBundle\Entity\TourImage:
-    image:
+    tour_mapping:
         mapping:           tour_mapping
         filename_property: fileName
