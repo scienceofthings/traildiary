@@ -12,6 +12,7 @@
                 <th>Markerlat</th>
                 <th>Markerlon</th>
                 <th>Gpx</th>
+                <th>Images</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,6 +25,12 @@
                 <td>{{ entity.markerlat }}</td>
                 <td>{{ entity.markerlon }}</td>
                 <td><a href="{{ vich_uploader_asset(entity, 'gpx_file') }}">GPX</a></td>
+                <td>
+                    {% for image in entity.tourImages %}
+                        {{ image.altText }}
+                        <a href="{{ vich_uploader_asset(image, 'image') }}">Image</a>
+                    {% endfor %}
+                </td>
                 <td>
                 <ul>
                     <li>
