@@ -1,0 +1,30 @@
+tourimage:
+    path:     /
+    defaults: { _controller: "MapBundle:TourImage:index" }
+
+tourimage_show:
+    path:     /{id}/show
+    defaults: { _controller: "MapBundle:TourImage:show" }
+
+tourimage_new:
+    path:     /new
+    defaults: { _controller: "MapBundle:TourImage:new" }
+
+tourimage_create:
+    path:     /create
+    defaults: { _controller: "MapBundle:TourImage:create" }
+    methods:  POST
+
+tourimage_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MapBundle:TourImage:edit" }
+
+tourimage_update:
+    path:     /{id}/update
+    defaults: { _controller: "MapBundle:TourImage:update" }
+    methods:  [POST, PUT]
+
+tourimage_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MapBundle:TourImage:delete" }
+    methods:  [POST, DELETE]

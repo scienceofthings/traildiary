@@ -15,7 +15,9 @@ class TourImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('image');
+            ->add('altText')
+            ->add('image', 'vich_file');
+            //->add('image');
     }
 
     /**

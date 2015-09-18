@@ -12,6 +12,9 @@ Ghyneck\MapBundle\Entity\TourImage:
         fileName:
             type: string
             length: 255
+        altText:
+            type: string
+            length: 255
     manyToOne:
         tour:
             targetEntity:             Tour

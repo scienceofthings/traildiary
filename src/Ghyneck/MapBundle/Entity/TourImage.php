@@ -33,6 +33,11 @@ class TourImage
      */
     protected $image;
 
+    /*
+     * @var string
+     */
+    protected $altText;
+
     /**
      * @var \Ghyneck\MapBundle\Entity\Tour
      */
@@ -71,6 +76,23 @@ class TourImage
     {
         return $this->tourId;
     }
+
+    /*
+     * @param string $altText
+     */
+    public function setAltText($altText)
+    {
+        $this->altText = $altText;
+    }
+
+    /*
+     * @return string
+     */
+    public function getAltText()
+    {
+        return $this->altText;
+    }
+
 
     /**
      * Set fileName
