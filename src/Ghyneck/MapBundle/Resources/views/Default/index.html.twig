@@ -22,6 +22,8 @@
 {% endblock footer %}
 
 {% block foot_script_assetic %}
+    {{ parent() }}
+
     {# jQuery #}
     {% javascripts 'bundles/bmatznerjquery/js/jquery.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -43,13 +45,11 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {# own Css and JS #}
-    {% stylesheets '@MapBundle/Resources/public/css/main.css' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
+    {# own JS #}
     {% javascripts '@MapBundle/Resources/public/js/mapWidget.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#mapContainer").leafletwidget({
