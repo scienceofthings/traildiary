@@ -1,30 +1,30 @@
-tour:
+category:
     path:     /
     defaults: { _controller: "MapBundle:Category:index" }
 
-tour_show:
+category_show:
     path:     /{id}/show
     defaults: { _controller: "MapBundle:Category:show" }
 
-tour_new:
+category_new:
     path:     /new
     defaults: { _controller: "MapBundle:Category:new" }
 
-tour_create:
+category_create:
     path:     /create
     defaults: { _controller: "MapBundle:Category:create" }
     methods:  POST
 
-tour_edit:
+category_edit:
     path:     /{id}/edit
     defaults: { _controller: "MapBundle:Category:edit" }
 
-tour_update:
+category_update:
     path:     /{id}/update
     defaults: { _controller: "MapBundle:Category:update" }
     methods:  [POST, PUT]
 
-tour_delete:
+category_delete:
     path:     /{id}/delete
     defaults: { _controller: "MapBundle:Category:delete" }
     methods:  [POST, DELETE]
