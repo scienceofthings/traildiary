@@ -2,6 +2,10 @@ map_tour:
     resource: "@MapBundle/Resources/config/routing/tour.yml"
     prefix:   /tour
 
+map_category:
+    resource: "@MapBundle/Resources/config/routing/category.yml"
+    prefix:   /category
+
 map_tourimage:
     resource: "@MapBundle/Resources/config/routing/tourimage.yml"
     prefix:   /tourimage
