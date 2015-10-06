@@ -13,3 +13,7 @@ Ghyneck\MapBundle\Entity\Category:
             type: string
             length: 255
     lifecycleCallbacks: {  }
+    oneToMany:
+            tours:
+                targetEntity: Tour
+                mappedBy: category
