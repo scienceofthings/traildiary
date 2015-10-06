@@ -19,6 +19,15 @@ class Category
      */
     private $title;
 
+    /*
+     * @var ArrayCollection
+     */
+    protected $tours;
+
+    public function __construct()
+    {
+        $this->tours = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -51,5 +60,38 @@ class Category
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Add tours
+     *
+     * @param \Ghyneck\MapBundle\Entity\Tour $tours
+     * @return Category
+     */
+    public function addTour(\Ghyneck\MapBundle\Entity\Tour $tours)
+    {
+        $this->tours[] = $tours;
+
+        return $this;
+    }
+
+    /**
+     * Remove tours
+     *
+     * @param \Ghyneck\MapBundle\Entity\Tour $tours
+     */
+    public function removeTour(\Ghyneck\MapBundle\Entity\Tour $tours)
+    {
+        $this->tours->removeElement($tours);
+    }
+
+    /**
+     * Get tours
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTours()
+    {
+        return $this->tours;
     }
 }

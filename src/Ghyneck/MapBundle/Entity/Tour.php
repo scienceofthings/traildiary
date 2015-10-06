@@ -238,4 +238,45 @@ class Tour
     }
 
 
+    /**
+     * @var \Ghyneck\MapBundle\Entity\Category
+     */
+    private $category;
+
+
+    /**
+     * Add tourImages
+     *
+     * @param \Ghyneck\MapBundle\Entity\TourImage $tourImages
+     * @return Tour
+     */
+    public function addTourImage(\Ghyneck\MapBundle\Entity\TourImage $tourImages)
+    {
+        $this->tourImages[] = $tourImages;
+
+        return $this;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Ghyneck\MapBundle\Entity\Category $category
+     * @return Tour
+     */
+    public function setCategory(\Ghyneck\MapBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Ghyneck\MapBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
 }
