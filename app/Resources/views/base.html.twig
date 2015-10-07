@@ -3,9 +3,36 @@
 {% block footer %}
 {% endblock footer %}
 
-{% block foot_script_assetic %}
+{% block foot_script %}
+    {% block foot_script_assetic %}
+
     {# own Css #}
     {% stylesheets '@MapBundle/Resources/public/less/main.less' filter='less' output='css/compiled-main.css' %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
-{% endblock foot_script_assetic %}
+
+    {# jQuery #}
+    {% javascripts 'bundles/bmatznerjquery/js/jquery.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# jQuery.ui #}
+    {% stylesheets 'bundles/bmatznerjqueryui/css/ui-lightness/jquery-ui.min.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    {% javascripts 'bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {# Bootstrap #}
+    {% javascripts
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/*.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% endblock foot_script_assetic %}
+{% endblock foot_script %}

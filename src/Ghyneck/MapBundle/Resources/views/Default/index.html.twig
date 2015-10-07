@@ -18,24 +18,8 @@
     </a>
 {% endblock content_row %}
 
-{% block footer %}
-{% endblock footer %}
-
 {% block foot_script_assetic %}
     {{ parent() }}
-
-    {# jQuery #}
-    {% javascripts 'bundles/bmatznerjquery/js/jquery.min.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    {# jQuery.ui #}
-    {% stylesheets 'bundles/bmatznerjqueryui/css/ui-lightness/jquery-ui.min.css' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-    {% javascripts 'bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
 
     {# leaflet #}
     {% stylesheets 'bundles/bmatznerleaflet/css/leaflet.css' filter='cssrewrite' %}
