@@ -12,11 +12,8 @@ class DefaultController extends Controller
     
             
     public function indexAction()
-    {                  
-        $trackPointsInLeafletFormat = $this->getTracks();        
-        return $this->render('MapBundle:Default:index.html.twig', array(
-            'trackPointsInLeafletFormat' => $trackPointsInLeafletFormat,            
-        ));       
+    {                                  
+        return $this->render('MapBundle:Default:index.html.twig', array());
     }        
 
     protected function getTracks()
