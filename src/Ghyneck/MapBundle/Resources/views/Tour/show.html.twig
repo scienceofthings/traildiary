@@ -9,67 +9,43 @@
 {% endblock headline %}
 
 {% block content_row %}
-    <div class="col-md-6">
-        <div id="map">
-            <noscript><p>Zum Anzeigen der Karte wird Javascript benötigt.</p></noscript>
-        </div>
-        <div id="map_profiles">
-            <div id="map_hp" class="no_x"><noscript><p>Zum Anzeigen des Profils wird Javascript benötigt.</p></noscript></div>
+    {% if entity.gpxFileName %}
+    <div class="row margin-bottom">
+        <div class="col-md-12">
+            <div id="map">
+                <noscript><p>Zum Anzeigen der Karte wird Javascript benötigt.</p></noscript>
+            </div>
         </div>
     </div>
-<div>
-    <a download="{{ vich_uploader_asset(entity, 'gpx_file') }}" href="{{ vich_uploader_asset(entity, 'gpx_file') }}">Download GPX</a>
-</div>
-
-    {% if entity.tourImages %}
-        <ul class="gallery">
-            {% for tourImage in entity.tourImages %}
-                <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <img class="img-responsive" src="{{ vich_uploader_asset(tourImage, 'image') }}" alt="Image"/>
-                </li>
-            {% endfor %}
-        </ul>
     {% endif %}
 
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                {{ entity.description }}
+            </div>
+            <div>
+                <a download="{{ vich_uploader_asset(entity, 'gpx_file') }}" href="{{ vich_uploader_asset(entity, 'gpx_file') }}">Download GPX</a>
+            </div>
+            <div>
+                <a href="{{ path('tour_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {% if entity.tourImages %}
+                <ul class="gallery">
+                    {% for tourImage in entity.tourImages %}
+                        <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <img class="img-responsive" src="{{ vich_uploader_asset(tourImage, 'image') }}" alt="Image"/>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
 
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td>{{ entity.description }}</td>
-        </tr>
-        <tr>
-            <th>Markerlat</th>
-            <td>{{ entity.markerlat }}</td>
-        </tr>
-        <tr>
-            <th>Markerlon</th>
-            <td>{{ entity.markerlon }}</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('tour') }}">
-                Back to the list
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('tour_edit', { 'id': entity.id }) }}">
-                Edit
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
 {% endblock content_row %}
 
 {% block foot_script_assetic %}
