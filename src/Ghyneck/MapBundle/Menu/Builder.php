@@ -18,7 +18,7 @@ class Builder extends ContainerAware
             'navbar' => true,
         ));
 
-        $layout = $menu->addChild('Layout', array(
+        $layout = $menu->addChild('Categories', array(
             'route' => 'tour',
         ));
 
