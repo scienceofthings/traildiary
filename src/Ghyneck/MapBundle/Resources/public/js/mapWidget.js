@@ -1,16 +1,15 @@
 $(function () {
     $.widget("custom.leafletwidget", {
-    // default options
         options: {
             mapId: 'map',
             imagePath: null,            
-            trackPoints: null,
+            webPathToGpxFile: null,
             // callbacks
             change: null,
             random: null
         },        
-        _create: function () {                        
-            this._drawTracks(this.options.trackPoints);
+        _create: function () {
+            this._drawTracks(this.options.webPathToGpxFile);
             //this._refresh();
         },
         // called when created, and later when changing options
@@ -36,7 +35,7 @@ $(function () {
                 this.option(colors);
             }
         },
-        _drawTracks: function(trackPointsInLeafletFormat) {
+        _drawTracks: function(webPathToGpxFile) {
             var map = L.map(this.options.mapId).setView([47.923672, 7.895910], 13);
             L.tileLayer(                        
                         'http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
@@ -44,11 +43,14 @@ $(function () {
                             maxZoom: 18
                         })
             .addTo(map);
+            var customLayer = L.geoJson(null,{
+                style: function(feature) {
+                    return { color: 'red' };
+                }
+            });
             L.Icon.Default.imagePath = this.options.imagePath;
-            L.marker([47.923672, 7.895910]).addTo(map);
-            
-            var pointList = trackPointsInLeafletFormat;               
-            L.polyline(pointList, {color: 'red'}).addTo(map);
+            omnivore.gpx(webPathToGpxFile, null, customLayer).addTo(map);
+            //L.marker([47.923672, 7.895910]).addTo(map);
         },
         // events bound via _on are removed automatically
         // revert other modifications here

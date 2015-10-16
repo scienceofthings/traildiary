@@ -10,7 +10,7 @@
 
 {% block content_row %}
     <div class="col-md-6">
-        <div id="map" class="gpxview:{{ vich_uploader_asset(entity, 'gpx_file') }}:Karte" style="height:500px;width: 300px">
+        <div id="map">
             <noscript><p>Zum Anzeigen der Karte wird Javascript benötigt.</p></noscript>
         </div>
         <div id="map_profiles">
@@ -75,8 +75,29 @@
 {% block foot_script_assetic %}
     {{ parent() }}
 
-    {# own JS #}
-    {% javascripts '@MapBundle/Resources/public/js/GM_Utils/GPX2GM.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {# leaflet #}
+    {% stylesheets 'bundles/bmatznerleaflet/css/leaflet.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    {% javascripts 'bundles/bmatznerleaflet/js/leaflet.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    {# own JS #}
+    {% javascripts '@MapBundle/Resources/public/js/lib/leaflet-omnivore.min.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts '@MapBundle/Resources/public/js/mapWidget.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#map").leafletwidget({
+                "webPathToGpxFile" : "{{ vich_uploader_asset(entity, 'gpx_file') }}",
+                "imagePath": "{{ asset('bundles/map/images/') }}"
+            });
+        });
+    </script>
 {% endblock foot_script_assetic %}
