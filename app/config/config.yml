@@ -88,3 +88,6 @@ vich_uploader:
         image:
             uri_prefix:         /tourimages
             upload_destination: %kernel.root_dir%/../web/tourimages
+
+mopa_bootstrap:
+    menu: ~

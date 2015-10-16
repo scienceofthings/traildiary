@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Bmatzner\LeafletBundle\BmatznerLeafletBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
