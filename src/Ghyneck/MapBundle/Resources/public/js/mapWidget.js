@@ -4,12 +4,14 @@ $(function () {
             mapId: 'map',
             imagePath: null,            
             webPathToGpxFile: null,
+            centerPoint: null,
             // callbacks
             change: null,
             random: null
         },        
         _create: function () {
-            this._drawTracks(this.options.webPathToGpxFile);
+            var map = this._createMap(this.options.centerPoint);
+            this._drawTrack(map, this.options.webPathToGpxFile);
             //this._refresh();
         },
         // called when created, and later when changing options
@@ -35,22 +37,24 @@ $(function () {
                 this.option(colors);
             }
         },
-        _drawTracks: function(webPathToGpxFile) {
-            var map = L.map(this.options.mapId).setView([47.923672, 7.895910], 13);
-            L.tileLayer(                        
-                        'http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
-                            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                            maxZoom: 18
-                        })
-            .addTo(map);
+        _drawTrack: function(map, webPathToGpxFile) {
             var customLayer = L.geoJson(null,{
                 style: function(feature) {
                     return { color: 'red' };
                 }
             });
-            L.Icon.Default.imagePath = this.options.imagePath;
             omnivore.gpx(webPathToGpxFile, null, customLayer).addTo(map);
-            //L.marker([47.923672, 7.895910]).addTo(map);
+        },
+        _createMap: function(centerPoint) {
+            var map = L.map(this.options.mapId).setView([centerPoint.lat, centerPoint.lon], 13);
+            L.tileLayer(
+                'http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                    maxZoom: 18
+                })
+                .addTo(map);
+            L.Icon.Default.imagePath = this.options.imagePath;
+            return map;
         },
         // events bound via _on are removed automatically
         // revert other modifications here
