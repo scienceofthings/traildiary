@@ -10,6 +10,9 @@
 /composer.lock
 /vendor/
 /web/bundles/
+/web/uploads/
+/web/css/
+/web/js/
 
 /* IDE files */
 .idea
