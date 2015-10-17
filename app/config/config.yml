@@ -83,11 +83,11 @@ vich_uploader:
     db_driver: orm
     mappings:
         gpx_file:
-            uri_prefix:         /uploads/gpx
-            upload_destination: %kernel.root_dir%/../web/uploads/gpx
+            uri_prefix:         /uploads/diaryFiles
+            upload_destination: %kernel.root_dir%/../web/uploads/diaryFiles
         image:
-            uri_prefix:         /uploads/tourimages
-            upload_destination: %kernel.root_dir%/../web/uploads/tourimages
+            uri_prefix:         /uploads/diaryFiles
+            upload_destination: %kernel.root_dir%/../web/uploads/diaryFiles
 
 mopa_bootstrap:
     menu: ~
