@@ -1,16 +1,13 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
-    <h1>Tour creation</h1>
+{% block title %}
+    Create new Tour
+{% endblock %}
 
+{% block headline %}
+    Tour creation
+{% endblock headline %}
+
+{% block content_row %}
     {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('tour') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
-
 {% endblock %}
