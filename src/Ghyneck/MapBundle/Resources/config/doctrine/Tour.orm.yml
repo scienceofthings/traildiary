@@ -30,10 +30,11 @@ Ghyneck\MapBundle\Entity\Tour:
             mappedBy:     tour
             cascade:      ["persist", "merge"]
     manyToOne:
-            category:
-                targetEntity: Category
-                inversedBy: tours
-                joinColumn:
-                    name: category_id
-                    referencedColumnName: id
-    lifecycleCallbacks: {  }
+        category:
+            targetEntity: Category
+            inversedBy: tours
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+            postPersist: [assignImagesAndGpxFromDirectory]
