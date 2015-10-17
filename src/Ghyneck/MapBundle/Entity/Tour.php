@@ -35,7 +35,7 @@ class Tour
     /**
      * @var string
      */
-    private $gpxFileName;
+    private $gpxFileName = '';
 
     /*
      * @var File
@@ -50,12 +50,12 @@ class Tour
     /**
      * @var float
      */
-    private $markerlat;
+    private $markerlat = 0.0;
 
     /**
      * @var float
      */
-    private $markerlon;
+    private $markerlon = 0.0;
 
 
     /**
@@ -306,5 +306,13 @@ class Tour
     public function getCategory()
     {
         return $this->category;
+    }
+
+    public function assignImagesAndGpxFromDirectory()
+    {
+        $this->setGpxFileName('ghy.gpx');
+        $ghy = 1;
+
+
     }
 }

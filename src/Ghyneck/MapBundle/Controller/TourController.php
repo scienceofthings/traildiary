@@ -41,8 +41,6 @@ class TourController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $tour->setMarkerlat(0.0);
-            $tour->setMarkerlon(0.0);                                   
             $em = $this->getDoctrine()->getManager();
             $em->persist($tour);            
             $em->flush();
