@@ -18,6 +18,9 @@ class TourType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
+            ->add('category', 'entity', array(
+                'class' => 'MapBundle:Category',
+                'property' => 'title'))
             ->add('directory');
     }
     
