@@ -30,6 +30,11 @@ class Tour
     /**
      * @var string
      */
+    private $directory;
+
+    /**
+     * @var string
+     */
     private $gpxFileName;
 
     /*
@@ -115,6 +120,29 @@ class Tour
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set directory
+     *
+     * @param string $directory
+     * @return Tour
+     */
+    public function setDirectory($directory)
+    {
+        $this->directory = $directory;
+
+        return $this;
+    }
+
+    /**
+     * Get directory
+     *
+     * @return string
+     */
+    public function getDirectory()
+    {
+        return $this->directory;
     }
 
     /**

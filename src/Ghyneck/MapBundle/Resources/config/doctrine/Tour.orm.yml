@@ -21,6 +21,9 @@ Ghyneck\MapBundle\Entity\Tour:
             type: float
         markerlon:
             type: float
+        directory:
+            type: string
+            length: 255
     oneToMany:
         tourImages:
             targetEntity: TourImage

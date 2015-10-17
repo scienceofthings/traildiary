@@ -18,19 +18,7 @@ class TourType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('gpx_file', 'vich_file',
-                array(
-                    'required'      => false,
-                    'allow_delete'  => true, // not mandatory, default is true
-                    'download_link' => true // not mandatory, default is true
-                )
-            );
-            $builder->add('tourImages', 'collection', array(
-                'type' => new TourImageType(),
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false
-            ));
+            ->add('directory');
     }
     
     /**
