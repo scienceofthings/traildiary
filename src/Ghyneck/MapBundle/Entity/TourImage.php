@@ -36,7 +36,7 @@ class TourImage
     /*
      * @var string
      */
-    protected $altText;
+    protected $altText = "";
 
     /**
      * @var \Ghyneck\MapBundle\Entity\Tour
