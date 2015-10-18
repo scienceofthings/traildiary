@@ -308,11 +308,4 @@ class Tour
         return $this->category;
     }
 
-    public function assignImagesAndGpxFromDirectory()
-    {
-        $this->setGpxFileName('ghy.gpx');
-        $ghy = 1;
-
-
-    }
 }

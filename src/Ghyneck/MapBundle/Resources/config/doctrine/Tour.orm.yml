@@ -36,5 +36,4 @@ Ghyneck\MapBundle\Entity\Tour:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
-    lifecycleCallbacks:
-            postPersist: [assignImagesAndGpxFromDirectory]
+    lifecycleCallbacks: {  }
