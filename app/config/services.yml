@@ -6,6 +6,7 @@ parameters:
 services:
   fileImporter:
     class: Ghyneck\MapBundle\EventListener\FileImporter
+    arguments: ['@service_container']
     tags:
       - { name: doctrine.event_listener, event: prePersist }
 #    service_name:
