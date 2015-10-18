@@ -34,12 +34,4 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#mapContainer").leafletwidget({
-                "trackPoints": {{ trackPointsInLeafletFormat }},
-                "imagePath": "{{ asset('bundles/map/images/') }}"
-            });
-        });
-    </script>
 {% endblock foot_script_assetic %}
