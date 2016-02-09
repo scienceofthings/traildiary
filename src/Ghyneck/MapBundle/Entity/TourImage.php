@@ -140,7 +140,7 @@ class TourImage
         return $this->tour;
     }
 
-    public function setImage(File $image)
+    public function setImage($image)
     {
         $this->image = $image;
 
