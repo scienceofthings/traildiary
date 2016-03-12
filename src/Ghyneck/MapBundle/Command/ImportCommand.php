@@ -2,11 +2,14 @@
 
 namespace Ghyneck\MapBundle\Command;
 
+use Ghyneck\MapBundle\Entity\Tour;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Ghyneck\MapBundle\Helper\DiaryFolder;
+use Ghyneck\MapBundle\Entity\TourImage;
 
 class ImportCommand extends ContainerAwareCommand
 {
@@ -48,6 +51,9 @@ class ImportCommand extends ContainerAwareCommand
         }
     }
 
+    /*
+     * @return string
+     */
     protected function getUploadDestination()
     {
         $vichUploaderMappings = $this->getContainer()->getParameter('vich_uploader.mappings');
@@ -60,11 +66,28 @@ class ImportCommand extends ContainerAwareCommand
 
     }
 
+    /*
+     * @param string $uploadDestination
+     * @param string $directory which directory to choose from all directories within $uploadDestination
+     */
     protected function importDirectory($uploadDestination, $directory)
     {
+
+        $diaryFolder = new DiaryFolder($uploadDestination, $directory);
+        $gpxFile = $diaryFolder->getGpxFile();
+        $images = $diaryFolder->getImageFiles();
+
         $em = $this->getContainer()->get('doctrine')->getManager();
         $tour = $em->getRepository('MapBundle:Tour')->findOneByDirectory($directory);
-        // tour-addImages
-        // tour->setGpxFile
+        if($tour instanceof Tour){
+            foreach($images as $image){
+                $tourImage = new TourImage();
+                $tourImage->setFileName($image->getFilename());
+                $tour->addImage($tourImage);
+            }
+            $tour->setGpxFileName($gpxFile);
+            $em->persist($tour);
+        }
+        $em->flush();
     }
 }
