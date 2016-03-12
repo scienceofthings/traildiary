@@ -72,24 +72,45 @@ class ImportCommand extends ContainerAwareCommand
      */
     protected function importDirectory($uploadDestination, $directory)
     {
-
         $diaryFolder = new DiaryFolder($uploadDestination, $directory);
-        $gpxFile = $diaryFolder->getGpxFile();
-        $images = $diaryFolder->getImageFiles();
-
         $em = $this->getContainer()->get('doctrine')->getManager();
         $tour = $em->getRepository('MapBundle:Tour')->findOneByDirectory($directory);
         if($tour instanceof Tour){
-            $this->removeTourImages($tour);
-            foreach($images as $image){
-                $tourImage = new TourImage();
-                $tourImage->setFileName($directory . DIRECTORY_SEPARATOR . $image->getFilename());
-                $tour->addImage($tourImage);
-            }
-            $tour->setGpxFileName($directory . DIRECTORY_SEPARATOR . $gpxFile);
+            $this->addTourImages($tour, $diaryFolder, $directory);
+            $this->addGpxFile($tour, $diaryFolder, $directory);
             $em->persist($tour);
         }
         $em->flush();
+    }
+
+    /*
+     * @param Tour $tour
+     * @param DiaryFolder $diaryFolder
+     * @param string $prefix
+     */
+    protected function addGpxFile($tour, $diaryFolder, $directory)
+    {
+        $gpxFile = $diaryFolder->getGpxFile();
+        $tour->setGpxFileName($directory . DIRECTORY_SEPARATOR . $gpxFile);
+
+    }
+
+    /*
+     * @param Tour $tour
+     * @param DiaryFolder $diaryFolder
+     * @param string $prefix
+     */
+    protected function addTourImages(Tour $tour, DiaryFolder $diaryFolder, $prefix)
+    {
+        $this->removeTourImages($tour);
+        $images = $diaryFolder->getImageFiles();
+        foreach($images as $image){
+            $tourImage = new TourImage();
+            $tourImage->setFileName($prefix . DIRECTORY_SEPARATOR . $image->getFilename());
+            $tour->addImage($tourImage);
+        }
+
+
     }
 
     /*
