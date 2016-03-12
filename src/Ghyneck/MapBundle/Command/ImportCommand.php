@@ -80,14 +80,30 @@ class ImportCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $tour = $em->getRepository('MapBundle:Tour')->findOneByDirectory($directory);
         if($tour instanceof Tour){
+            $this->removeTourImages($tour);
             foreach($images as $image){
                 $tourImage = new TourImage();
-                $tourImage->setFileName($image->getFilename());
+                $tourImage->setFileName($directory . DIRECTORY_SEPARATOR . $image->getFilename());
                 $tour->addImage($tourImage);
             }
-            $tour->setGpxFileName($gpxFile);
+            $tour->setGpxFileName($directory . DIRECTORY_SEPARATOR . $gpxFile);
             $em->persist($tour);
         }
         $em->flush();
     }
+
+    /*
+     * @param Tour $tour
+     */
+    protected function removeTourImages(Tour $tour)
+    {
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $tourImages = $tour->getTourImages()->toArray();
+        foreach($tourImages as $tourImage){
+            $em->remove($tourImage);
+        }
+        $em->flush();
+    }
+
+
 }
