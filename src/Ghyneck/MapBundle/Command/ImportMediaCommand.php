@@ -11,12 +11,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Ghyneck\MapBundle\Helper\DiaryFolder;
 use Ghyneck\MapBundle\Entity\TourImage;
 
-class ImportCommand extends ContainerAwareCommand
+class ImportMediaCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('map:import')
+            ->setName('trails:import:media')
             ->setDescription('Import Images and Gpx Files from directory')
             ->addArgument(
                 'directory',
