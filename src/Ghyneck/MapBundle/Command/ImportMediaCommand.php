@@ -92,8 +92,7 @@ class ImportMediaCommand extends ContainerAwareCommand
     protected function addGpxFile($tour, $diaryFolder, $directory)
     {
         $gpxFile = $diaryFolder->getGpxFile();
-        $tour->setGpxFileName($directory . DIRECTORY_SEPARATOR . $gpxFile);
-
+        $tour->setGpxFileName($gpxFile->getRealPath());
     }
 
     /*

@@ -23,16 +23,15 @@ class DiaryFolder
 
 
     /*
-     * @return string
+     * @return SplFileInfo
      */
     public function getGpxFile()
     {
         $diaryDirectory = clone($this->diaryDirectory);
-        $gpxFiles = $diaryDirectory->name('*.gpx');
-        foreach($gpxFiles as $gpxFile){
-            $diaryDirectory->name('');
-            return  $gpxFile->getFilename();
-        }
+        $gpxFiles = $diaryDirectory->name('*.gpx')->getIterator();
+        $gpxFiles->rewind();
+        $firstMatchingFile = $gpxFiles->current();
+        return $firstMatchingFile;
     }
 
     /*
