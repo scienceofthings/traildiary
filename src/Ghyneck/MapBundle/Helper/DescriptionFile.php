@@ -3,6 +3,7 @@ namespace Ghyneck\MapBundle\Helper;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Parsedown;
 
 class DescriptionFile
 {
@@ -27,8 +28,8 @@ class DescriptionFile
     public function getDescriptionAsHtml()
     {
         $rawDescription = $this->descriptionFile->getContents();
-        return $rawDescription;
-
+        $Parsedown = new Parsedown();
+        return $Parsedown->text($rawDescription);
     }
 
 }

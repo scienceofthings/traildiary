@@ -13,7 +13,7 @@
     <div class="row margin-bottom">
         <div class="col-md-12">
             <div id="map">
-                <noscript><p>Zum Anzeigen der Karte wird Javascript benötigt.</p></noscript>
+                <noscript><p>Zum Anzeigen der Karte wird Javascript benï¿½tigt.</p></noscript>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
     <div class="row margin-bottom">
         <div class="col-md-12">
             <div>
-                {{ entity.description }}
+                {{ entity.description|raw }}
             </div>
             <div>
                 <a download="{{ vich_uploader_asset(entity, 'gpx_file') }}" href="{{ vich_uploader_asset(entity, 'gpx_file') }}">Download GPX</a>
