@@ -24,7 +24,7 @@ class ImportTrailsCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('trails:import')
+            ->setName('map:import:trails')
             ->setDescription('Import diary from description.md files');
     }
 

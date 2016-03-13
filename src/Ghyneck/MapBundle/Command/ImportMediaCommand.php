@@ -16,7 +16,8 @@ class ImportMediaCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('trails:import:media')
+            ->setName('map:import:media')
+            ->setName('map:import:media')
             ->setDescription('Import Images and Gpx Files from directory')
             ->addArgument(
                 'directory',

@@ -22,8 +22,8 @@ class DeleteTrailsCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('trails:delete')
-            ->setDescription('Delete all diaries');
+            ->setName('map:delete:trails')
+            ->setDescription('Delete all trails.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
