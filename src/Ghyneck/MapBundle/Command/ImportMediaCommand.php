@@ -2,14 +2,15 @@
 
 namespace Ghyneck\MapBundle\Command;
 
-use Ghyneck\MapBundle\Entity\Tour;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Ghyneck\MapBundle\Helper\DiaryFolder;
-use Ghyneck\MapBundle\Entity\TourImage;
+use \Ghyneck\MapBundle\Entity\Tour;
+use \Ghyneck\MapBundle\Helper\DiaryFolder;
+use \Ghyneck\MapBundle\Entity\TourImage;
+use \Ghyneck\MapBundle\Helper\GpxFile;
 
 class ImportMediaCommand extends ContainerAwareCommand
 {
@@ -78,7 +79,7 @@ class ImportMediaCommand extends ContainerAwareCommand
         $tour = $em->getRepository('MapBundle:Tour')->findOneByDirectory($directory);
         if($tour instanceof Tour){
             $this->addTourImages($tour, $diaryFolder, $directory);
-            $this->addGpxFile($tour, $diaryFolder, $directory);
+            $this->setGpsInformation($tour, $diaryFolder);
             $em->persist($tour);
         }
         $em->flush();
@@ -87,12 +88,14 @@ class ImportMediaCommand extends ContainerAwareCommand
     /*
      * @param Tour $tour
      * @param DiaryFolder $diaryFolder
-     * @param string $prefix
      */
-    protected function addGpxFile($tour, $diaryFolder, $directory)
+    protected function setGpsInformation(Tour $tour, DiaryFolder $diaryFolder)
     {
-        $gpxFile = $diaryFolder->getGpxFile();
-        $tour->setGpxFileName($gpxFile->getRealPath());
+        $gpxFileInfo = $diaryFolder->getGpxFile();
+        $gpxFile = new GpxFile($gpxFileInfo);
+        $tour->setGpxFileName($gpxFile->getPathName());
+        $tour->setMarkerlat($gpxFile->getLattitude());
+        $tour->setMarkerlon($gpxFile->getLongitude());
     }
 
     /*
