@@ -74,7 +74,8 @@ class ImportMediaCommand extends ContainerAwareCommand
      */
     protected function importDirectory($uploadDestination, $directory)
     {
-        $diaryFolder = new DiaryFolder($uploadDestination, $directory);
+        $diaryFolderInfo = new \SplFileInfo($uploadDestination . DIRECTORY_SEPARATOR . $directory);
+        $diaryFolder = new DiaryFolder($diaryFolderInfo);
         $em = $this->getContainer()->get('doctrine')->getManager();
         $tour = $em->getRepository('MapBundle:Tour')->findOneByDirectory($directory);
         if($tour instanceof Tour){

@@ -2,7 +2,6 @@
 namespace Ghyneck\MapBundle\Helper;
 
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 class DiaryFolder
 {
@@ -12,13 +11,13 @@ class DiaryFolder
     private $diaryDirectory;
 
     /*
-     * @param SplFileInfo $directory
+     * @param \SplFileInfo $directory
      */
-    public function __construct(SplFileInfo $directory)
+    public function __construct(\SplFileInfo $directory)
     {
         /** @var Symfony\Component\Finder\Finder diaryDirectory */
         $this->diaryDirectory = new Finder();
-        $this->diaryDirectory->files()->in($directory->getRealPath());
+        $this->diaryDirectory->files()->in($directory->getPath());
     }
 
 
