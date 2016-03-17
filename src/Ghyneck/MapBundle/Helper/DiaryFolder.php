@@ -17,7 +17,8 @@ class DiaryFolder
     {
         /** @var Symfony\Component\Finder\Finder diaryDirectory */
         $this->diaryDirectory = new Finder();
-        $this->diaryDirectory->files()->in($directory->getPath());
+        $pathName = $directory->getPathname();
+        $this->diaryDirectory->files()->in($pathName);
     }
 
 
