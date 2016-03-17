@@ -49,7 +49,7 @@ class ImportMediaCommand extends ContainerAwareCommand
             $this->importDirectory($uploadDestination, $directory);
             $output->writeln("Directory $directory imported.");
         } else {
-            $output->writeln("No directories imported.");
+            $output->writeln("Please specify a directory as argument or set --all to import all directories.");
         }
     }
 
@@ -94,7 +94,7 @@ class ImportMediaCommand extends ContainerAwareCommand
     {
         $gpxFileInfo = $diaryFolder->getGpxFile();
         $gpxFile = new GpxFile($gpxFileInfo);
-        $tour->setGpxFileName($gpxFile->getPathName());
+        $tour->setGpxFileName($gpxFile->getPathNameRelativeToUploads());
         $tour->setMarkerlat($gpxFile->getLattitude());
         $tour->setMarkerlon($gpxFile->getLongitude());
     }

@@ -52,9 +52,11 @@ class GpxFile
     /*
      * @return string
      */
-    public function getPathName()
+    public function getPathNameRelativeToUploads()
     {
-        return $this->file->getRealPath();
+        $relativePath = $this->file->getPathInfo()->getFilename();
+        $fileName = $this->file->getFilename();
+        return $relativePath . DIRECTORY_SEPARATOR . $fileName;
     }
 
     /*
