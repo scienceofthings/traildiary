@@ -1,7 +1,11 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+    {% trans %}tourlist{% endtrans %}
+{% endblock %}
+
 {% block headline %}
-    Tour list
+    {% trans %}tourlist{% endtrans %}
 {% endblock headline %}
 
 {% block content_row %}
@@ -17,12 +21,17 @@
     <div class="row">
         <div>
             <a href="{{ path('tour_new') }}">
-                Create a new entry
+                {% trans %}createtrail{% endtrans %}
+            </a>
+        </div>
+        <div>
+            <a href="{{ path('category_new') }}">
+                {% trans %}createregion{% endtrans %}
             </a>
         </div>
         <div>
             <a href="{{ path('map_homepage') }}">
-                Karte
+                {% trans %}map{% endtrans %}
             </a>
         </div>
     </div>

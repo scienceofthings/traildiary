@@ -1,8 +1,11 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Trails{% endblock %}
+{% block title %}
+    {% trans %}regionlist{% endtrans %}
+{% endblock %}
 
 {% block headline %}
+    {% trans %}regionlist{% endtrans %}
 {% endblock headline %}
 
 {% block content_row %}
@@ -10,11 +13,6 @@
         {% for entity in entities %}
             <dl class="dl-horizontal col-md-6">
                 <dt>{{ entity.title }}</dt>
-                {% for tour in entity.tours %}
-                    <dd class="list-group-item">
-                        <a href="{{ path('tour_show', { 'id': tour.id }) }}">{{ tour.title }}</a>
-                    </dd>
-                {% endfor %}
             </dl>
         {% endfor %}
 
@@ -22,12 +20,12 @@
     <div class="row">
         <div>
             <a href="{{ path('category_new') }}">
-                Create a new category
+                {% trans %}createregion{% endtrans %}
             </a>
         </div>
         <div>
             <a href="{{ path('map_homepage') }}">
-                Karte
+                {% trans %}map{% endtrans %}
             </a>
         </div>
     </div>

@@ -1,8 +1,14 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
-    <h1>Tour edit</h1>
+{% block title %}
+    Edit Tour
+{% endblock %}
 
+{% block headline %}
+    Edit Tour
+{% endblock headline %}
+
+{% block content_row -%}
     {{ form(edit_form) }}
 
         <ul class="record_actions">
