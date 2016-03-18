@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Uran1980\FancyBoxBundle\Uran1980FancyBoxBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -33,7 +33,8 @@
         "knplabs/knp-menu": "~2.1",
         "craue/formflow-bundle": "~2.0",
         "erusev/parsedown": "dev-master",
-        "uran1980/fancybox-bundle": "dev-master"
+        "uran1980/fancybox-bundle": "dev-master",
+        "liip/imagine-bundle": "^1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
