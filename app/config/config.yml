@@ -90,5 +90,21 @@ vich_uploader:
             uri_prefix:         /uploads/diaryFiles
             upload_destination: %kernel.root_dir%/../web/uploads/diaryFiles
             delete_on_remove:   false
+
 mopa_bootstrap:
     menu: ~
+
+liip_imagine:
+    filter_sets:
+        min720:
+            quality: 75
+            filters:
+                thumbnail: { size: [720, 720], mode: outbound }
+        min940:
+            quality: 75
+            filters:
+                thumbnail: { size: [370, 370], mode: outbound }
+        big:
+            quality: 75
+            filters:
+                thumbnail: { size: [1170, 1170], mode: inset }

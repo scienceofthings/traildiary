@@ -15,6 +15,9 @@
             <div id="map">
                 <noscript><p>Zum Anzeigen der Karte wird Javascript ben�tigt.</p></noscript>
             </div>
+            <div>
+                <a download="{{ vich_uploader_asset(entity, 'gpx_file') }}" href="{{ vich_uploader_asset(entity, 'gpx_file') }}">Download GPX</a>
+            </div>
         </div>
     </div>
     {% endif %}
@@ -23,9 +26,6 @@
         <div class="col-md-12">
             <div>
                 {{ entity.description|raw }}
-            </div>
-            <div>
-                <a download="{{ vich_uploader_asset(entity, 'gpx_file') }}" href="{{ vich_uploader_asset(entity, 'gpx_file') }}">Download GPX</a>
             </div>
             <div>
                 <a href="{{ path('tour_edit', { 'id': entity.id }) }}">
@@ -37,17 +37,21 @@
 
     {% if entity.tourImages %}
     <div class="row margin-bottom">
-        <div class="col-md-12">
                 <ul class="gallery">
                     {% for tourImage in entity.tourImages %}
-                        <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <a href="{{ vich_uploader_asset(tourImage, 'image') }}" rel="gallery1" class="fancybox">
-                                <img class="img-responsive" src="{{ vich_uploader_asset(tourImage, 'image') }}" alt="Image"/>
+                        <li class="col-lg-4 col-md-4">
+                            <a href="{{ vich_uploader_asset(tourImage, 'image') | imagine_filter('big') }}" rel="gallery1" class="fancybox">
+                                <figure class="image">
+                                    <picture>
+                                        <source media="(min-width: 940px)" srcset="{{ vich_uploader_asset(tourImage, 'image') | imagine_filter('min940') }}">
+                                        <source media="(min-width: 720px)" srcset="{{ vich_uploader_asset(tourImage, 'image') | imagine_filter('min720') }}">
+                                        <img class="img-responsive" src="{{ vich_uploader_asset(tourImage, 'image') | imagine_filter('min720') }}" alt="Image">
+                                    </picture>
+                                </figure>
                             </a>
                         </li>
                     {% endfor %}
                 </ul>
-        </div>
     </div>
     {% endif %}
 
