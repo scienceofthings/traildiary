@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Uran1980\FancyBoxBundle\Uran1980FancyBoxBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

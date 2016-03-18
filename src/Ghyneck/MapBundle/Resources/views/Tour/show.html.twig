@@ -41,7 +41,9 @@
                 <ul class="gallery">
                     {% for tourImage in entity.tourImages %}
                         <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <img class="img-responsive" src="{{ vich_uploader_asset(tourImage, 'image') }}" alt="Image"/>
+                            <a href="{{ vich_uploader_asset(tourImage, 'image') }}" rel="gallery1" class="fancybox">
+                                <img class="img-responsive" src="{{ vich_uploader_asset(tourImage, 'image') }}" alt="Image"/>
+                            </a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -62,6 +64,14 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
+    {# fancybox lightbox #}
+    {% stylesheets 'bundles/uran1980fancybox/js/fancybox/source/jquery.fancybox.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    {% javascripts 'bundles/uran1980fancybox/js/fancybox/source/jquery.fancybox.pack.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
     {# own JS #}
     {% javascripts '@MapBundle/Resources/public/js/lib/leaflet-omnivore.min.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -77,6 +87,10 @@
                 "centerPoint" : {lat:{{ entity.markerlat }},lon:{{ entity.markerlon}}},
                 "webPathToGpxFile" : "{{ vich_uploader_asset(entity, 'gpx_file') }}",
                 "imagePath": "{{ asset('bundles/map/images/') }}"
+            });
+            $(".fancybox").fancybox({
+                openEffect	: 'none',
+                closeEffect	: 'none'
             });
         });
     </script>
