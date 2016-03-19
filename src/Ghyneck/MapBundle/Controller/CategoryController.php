@@ -39,9 +39,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * Creates a form to create a Tour entity.
+     * Creates a form to create a Category entity.
      *
-     * @param Tour $entity The entity
+     * @param Category $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
@@ -55,6 +55,42 @@ class CategoryController extends Controller
 
         return $form;
     }
+    
+    /**
+     * Creates a form to edit a Category entity.
+     *
+     * @param Category $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Category $entity)
+    {
+        $form = $this->createForm(new CategoryType(), $entity, array(
+            'action' => $this->generateUrl('category_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to delete a Category entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('category_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
+            ;
+    }
 
     public function newAction()
     {
@@ -66,28 +102,94 @@ class CategoryController extends Controller
             'form'   => $form->createView(),
             ));    }
 
-    public function showAction()
+    /**
+     * Finds and displays a Category entity.
+     *
+     * @param int $id
+     */
+    public function showAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('MapBundle:Category')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Category entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
         return $this->render('MapBundle:Category:show.html.twig', array(
-                // ...
-            ));    }
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
 
-    public function editAction()
+    public function editAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('MapBundle:Category')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Category entity.');
+        }
+
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id);
+
         return $this->render('MapBundle:Category:edit.html.twig', array(
-                // ...
-            ));    }
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));         
+    }
 
-    public function updateAction()
+    public function updateAction(Request $request, $id)
     {
-        return $this->render('MapBundle:Category:update.html.twig', array(
-                // ...
-            ));    }
+        $em = $this->getDoctrine()->getManager();
 
-    public function deleteAction()
+        $entity = $em->getRepository('MapBundle:Category')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Category entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('category_edit', array('id' => $id)));
+        }
+        
+        return $this->render('MapBundle:Category:edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            ));    
+    }
+
+    public function deleteAction(Request $request, $id)
     {
-        return $this->render('MapBundle:Category:delete.html.twig', array(
-                // ...
-            ));    }
+        $form = $this->createDeleteForm($id);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('MapBundle:Category')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Category entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('category'));
+    }
 
 }
