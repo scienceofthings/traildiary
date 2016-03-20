@@ -9,9 +9,16 @@
 {% endblock %}
 
 {% block content_row %}
-    {% if entity.title %}
-        {{ entity.title }}
-    {% endif %}
+    <div class="margin-bottom">
+        {% if entity.title %}
+            {{ entity.title }}
+        {% endif %}
+    </div>
+    <div>
+        <a href="{{ path('category') }}">
+            {% trans %}backtolist{% endtrans %}
+        </a>
+    </div>
     <div>
         <a href="{{ path('category_edit', { 'id': entity.id }) }}">
             {% trans %}editregion{% endtrans %}
