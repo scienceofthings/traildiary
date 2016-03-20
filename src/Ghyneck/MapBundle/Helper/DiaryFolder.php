@@ -23,7 +23,7 @@ class DiaryFolder
 
 
     /*
-     * @return SplFileInfo
+     * @return SplFileInfo|null returns null if no gpx file was found
      */
     public function getGpxFile()
     {

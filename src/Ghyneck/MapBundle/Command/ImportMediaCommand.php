@@ -103,6 +103,9 @@ class ImportMediaCommand extends ContainerAwareCommand
     protected function setGpsInformation(Tour $tour, DiaryFolder $diaryFolder)
     {
         $gpxFileInfo = $diaryFolder->getGpxFile();
+        if($gpxFileInfo === null){
+            return;
+        }
         $gpxFile = new GpxFile($gpxFileInfo);
         $tour->setGpxFileName($gpxFile->getPathNameRelativeToUploads());
         $tour->setMarkerlat($gpxFile->getLattitude());
