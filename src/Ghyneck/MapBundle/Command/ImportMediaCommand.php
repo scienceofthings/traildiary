@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use \Ghyneck\MapBundle\Entity\Tour;
+use Ghyneck\MapBundle\Helper\DiariesFolder;
 use \Ghyneck\MapBundle\Helper\DiaryFolder;
 use \Ghyneck\MapBundle\Entity\TourImage;
 use \Ghyneck\MapBundle\Helper\GpxFile;
@@ -63,10 +64,19 @@ class ImportMediaCommand extends ContainerAwareCommand
         return $uploadDestination;
     }
 
+    /*
+     * @param string $uploadDestination
+     */
     protected function importAllDirectories($uploadDestination)
     {
+        $diariesFolder = new DiariesFolder($uploadDestination);
+        $subDirectories = $diariesFolder->getDiaryFolders();
+        foreach ($subDirectories as $subDirectory){
+            $this->importDirectory($uploadDestination, $subDirectory->getRelativePathname());
+        }
 
     }
+
 
     /*
      * @param string $uploadDestination
