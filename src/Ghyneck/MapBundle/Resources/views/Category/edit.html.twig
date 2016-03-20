@@ -1,7 +1,22 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}MapBundle:Category:edit{% endblock %}
+{% block title %}
+    {% trans %}editregion{% endtrans %}
+{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Category:edit page</h1>
+{% block headline %}
+    {% trans %}editregion{% endtrans %}
+{% endblock %}
+
+{% block content_row %}
+    {{ form(edit_form) }}
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('category') }}">
+                {% trans %}backtolist{% endtrans %}
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

@@ -1,7 +1,26 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}MapBundle:Category:show{% endblock %}
+{% block title %}
+    {% trans %}regionshow{% endtrans %}
+{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Category:show page</h1>
+{% block headline %}
+    {% trans %}regionshow{% endtrans %}
+{% endblock %}
+
+{% block content_row %}
+    {% if entity.title %}
+        {{ entity.title }}
+    {% endif %}
+    <div>
+        <a href="{{ path('category_edit', { 'id': entity.id }) }}">
+            {% trans %}editregion{% endtrans %}
+        </a>
+    </div>
+    <div>
+        <a href="{{ path('map_homepage') }}">
+            {% trans %}map{% endtrans %}
+        </a>
+    </div>
+
 {% endblock %}

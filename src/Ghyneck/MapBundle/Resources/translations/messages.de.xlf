@@ -22,9 +22,26 @@
                 <source>regionlist</source>
                 <target state="translated">Liste der Regionen</target>
             </trans-unit>
-
-
-
+            <trans-unit id="6" approved="yes">
+                <source>regionshow</source>
+                <target state="translated">Region</target>
+            </trans-unit>
+            <trans-unit id="7" approved="yes">
+                <source>editregion</source>
+                <target state="translated">Region ändern</target>
+            </trans-unit>
+            <trans-unit id="8" approved="yes">
+                <source>edittour</source>
+                <target state="translated">Trail ändern</target>
+            </trans-unit>
+            <trans-unit id="9" approved="yes">
+                <source>javascriptisrequiredformap</source>
+                <target state="translated">Zum Anzeigen der Karte wird Javascript benötigt.</target>
+            </trans-unit>
+            <trans-unit id="10" approved="yes">
+                <source>backtolist</source>
+                <target state="translated">zurück zur Liste</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

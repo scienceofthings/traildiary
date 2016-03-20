@@ -11,9 +11,11 @@
 {% block content_row %}
     <div class="row margin-top">
         {% for entity in entities %}
-            <dl class="dl-horizontal col-md-6">
-                <dt>{{ entity.title }}</dt>
-            </dl>
+            <ul class="list-group">
+                <a href="{{ path('category_show', { 'id': entity.id }) }}">
+                    {{ entity.title }}
+                </a>
+            </ul>
         {% endfor %}
 
     </div>

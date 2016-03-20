@@ -1,7 +1,13 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}MapBundle:Category:new{% endblock %}
+{% block title %}
+    {% trans %}createregion{% endtrans %}
+{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Category:new page</h1>
+{% block headline %}
+    {% trans %}createregion{% endtrans %}
+{% endblock %}
+
+{% block content_row %}
+    {{ form(form) }}
 {% endblock %}

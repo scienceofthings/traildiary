@@ -13,7 +13,7 @@
     <div class="row margin-bottom">
         <div class="col-md-12">
             <div id="map">
-                <noscript><p>Zum Anzeigen der Karte wird Javascript ben�tigt.</p></noscript>
+                <noscript><p>{% trans %}javascriptisrequiredformap{% endtrans %}</p></noscript>
             </div>
             <div>
                 <a download="{{ vich_uploader_asset(entity, 'gpx_file') }}" href="{{ vich_uploader_asset(entity, 'gpx_file') }}">Download GPX</a>
@@ -29,7 +29,7 @@
             </div>
             <div>
                 <a href="{{ path('tour_edit', { 'id': entity.id }) }}">
-                    Edit
+                    {% trans %}edittour{% endtrans %}
                 </a>
             </div>
         </div>
