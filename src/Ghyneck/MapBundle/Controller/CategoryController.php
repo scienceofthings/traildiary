@@ -2,6 +2,7 @@
 
 namespace Ghyneck\MapBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ghyneck\MapBundle\Entity\Category;
 use Ghyneck\MapBundle\Form\CategoryType;

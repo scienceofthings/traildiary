@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tour
@@ -43,7 +44,7 @@ class Tour
     private $gpxFile;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     protected $tourImages;
 
@@ -63,7 +64,7 @@ class Tour
      */
     public function __construct()
     {
-        $this->tourImages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tourImages = new ArrayCollection();
     }
 
     /**
