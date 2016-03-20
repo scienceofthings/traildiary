@@ -1,5 +1,5 @@
 <?php
-namespace Ghyneck\MapBundle\EventListener;
+namespace Ghyneck\MapBundle\Service;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -26,7 +26,7 @@ class FileImporter
         }
     }
 
-    protected function assignFilesToTour($tour)
+    public function assignFilesToTour($tour)
     {
         $diaryPageFolderPath = $this->getUploadDirectoryPath() . DIRECTORY_SEPARATOR . $tour->getDirectory();
         if(is_dir($diaryPageFolderPath) === true){
