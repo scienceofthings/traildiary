@@ -28,7 +28,7 @@ Ghyneck\MapBundle\Entity\Tour:
         tourImages:
             targetEntity: TourImage
             mappedBy:     tour
-            cascade:      ["persist", "merge"]
+            cascade:      ["remove", "persist", "merge"]
     manyToOne:
         category:
             targetEntity: Category

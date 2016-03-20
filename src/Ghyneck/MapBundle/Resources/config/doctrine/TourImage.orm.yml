@@ -22,5 +22,4 @@ Ghyneck\MapBundle\Entity\TourImage:
             joinColumn:
             name:                 tourId
             referencedColumnName: id
-            onDelete:             cascade
     lifecycleCallbacks: {  }
