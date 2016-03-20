@@ -18,8 +18,8 @@ class Builder extends ContainerAware
             'navbar' => true,
         ));
 
-        $layout = $menu->addChild('Categories', array(
-            'route' => 'tour',
+        $layout = $menu->addChild('regions', array(
+            'route' => 'category',
         ));
 
         return $menu;
