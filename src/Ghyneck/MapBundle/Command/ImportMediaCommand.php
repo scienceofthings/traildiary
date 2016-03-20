@@ -85,15 +85,12 @@ class ImportMediaCommand extends ContainerAwareCommand
     protected function importDirectory($uploadDestination, $directory)
     {
         $diaryFolderInfo = new \SplFileInfo($uploadDestination . DIRECTORY_SEPARATOR . $directory);
-        $diaryFolder = new DiaryFolder($diaryFolderInfo);
         $em = $this->getContainer()->get('doctrine')->getManager();
         $tour = $em->getRepository('MapBundle:Tour')->findOneByDirectory($directory);
-        if($tour instanceof Tour){
-            $this->addTourImages($tour, $diaryFolder, $directory);
-            $this->setGpsInformation($tour, $diaryFolder);
-            $em->persist($tour);
-        }
-        $em->flush();
+
+        /** @var Ghyneck\MapBundle\Service\FileImporter $fileImporter */
+        $fileImporter = $this->getContainer()->get('fileImporter');
+        $fileImporter->assignFilesToTour($tour);
     }
 
     /*
