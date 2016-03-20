@@ -5,7 +5,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ghyneck\MapBundle\Entity\Tour;
 use Ghyneck\MapBundle\Entity\TourImage;
-
+use \Ghyneck\MapBundle\Helper\DiaryFolder;
+use \Ghyneck\MapBundle\Helper\GpxFile;
 
 
 class FileImporter
@@ -19,58 +20,84 @@ class FileImporter
     public function prePersist(LifecycleEventArgs $args)
     {
         $tour = $args->getEntity();
-        $entityManager = $args->getEntityManager();
 
         if ($tour instanceof Tour) {
             $this->assignFilesToTour($tour);
         }
     }
 
-    public function assignFilesToTour($tour)
-    {
-        $diaryPageFolderPath = $this->getUploadDirectoryPath() . DIRECTORY_SEPARATOR . $tour->getDirectory();
-        if(is_dir($diaryPageFolderPath) === true){
-            $this->assignGpxFiles($tour, $diaryPageFolderPath);
-            $this->assignTourImages($tour, $diaryPageFolderPath);
-        }
-    }
-
     /*
-     * @param Ghyneck\MapBundle\Entity\Tour $tour
-     * @param string $diaryPageFolderPath
+     * @param Tour $tour
      */
-    protected function assignGpxFiles($tour, $diaryPageFolderPath)
+    public function assignFilesToTour(Tour $tour)
     {
-        $diaryPageFolderIterator = new \DirectoryIterator($diaryPageFolderPath);
-        $gpxFiles = new \RegexIterator($diaryPageFolderIterator, '/\.gpx$/');
-        foreach($gpxFiles as $gpxFile){
-            $fileNameOfGpxFile = $gpxFile->getFilename();
-            $tour->setGpxFileName($tour->getDirectory() . DIRECTORY_SEPARATOR. $fileNameOfGpxFile);
-        }
+        $uploadDestination = $this->getUploadDestination();
+        $diaryFolderInfo = new \SplFileInfo($uploadDestination . DIRECTORY_SEPARATOR . $tour->getDirectory());
+        $diaryFolder = new DiaryFolder($diaryFolderInfo);
+        $this->addTourImages($tour, $diaryFolder, $tour->getDirectory());
+        $this->setGpsInformation($tour, $diaryFolder);
     }
 
     /*
-    * @param Ghyneck\MapBundle\Entity\Tour $tour
-    * @param string $diaryPageFolderPath
-    */
-    protected function assignTourImages($tour, $diaryPageFolderPath)
-    {
-        $directory = new \DirectoryIterator($diaryPageFolderPath);
-        $imageFileIterator = new \RegexIterator($directory, '/\.jpe?g$/i');
-        foreach($imageFileIterator as $imageFile){
-            $tourImage = new TourImage();
-            $tourImage->setFileName($tour->getDirectory() . DIRECTORY_SEPARATOR. $imageFile->getFilename());
-            $tour->addImage($tourImage);
-        }
-    }
-
-
-    protected function getUploadDirectoryPath()
+     * @return string
+     */
+    protected function getUploadDestination()
     {
         $vichUploaderMappings = $this->container->getParameter('vich_uploader.mappings');
         $uploadDestination = $vichUploaderMappings['image']['upload_destination'];
         return $uploadDestination;
     }
+
+    /*
+ * @param Tour $tour
+ * @param DiaryFolder $diaryFolder
+ */
+    protected function setGpsInformation(Tour $tour, DiaryFolder $diaryFolder)
+    {
+        $gpxFileInfo = $diaryFolder->getGpxFile();
+        if($gpxFileInfo === null){
+            return;
+        }
+        $gpxFile = new GpxFile($gpxFileInfo);
+        $tour->setGpxFileName($gpxFile->getPathNameRelativeToUploads());
+        $tour->setMarkerlat($gpxFile->getLattitude());
+        $tour->setMarkerlon($gpxFile->getLongitude());
+    }
+
+
+    /*
+     * @param Tour $tour
+     * @param DiaryFolder $diaryFolder
+     * @param string $prefix
+     */
+    protected function addTourImages(Tour $tour, DiaryFolder $diaryFolder, $prefix)
+    {
+        $this->removeTourImages($tour);
+        $images = $diaryFolder->getImageFiles();
+        foreach($images as $image){
+            $tourImage = new TourImage();
+            $tourImage->setFileName($prefix . DIRECTORY_SEPARATOR . $image->getFilename());
+            $tour->addImage($tourImage);
+        }
+    }
+
+    /*
+ * @param Tour $tour
+ */
+    protected function removeTourImages(Tour $tour)
+    {
+        $em = $this->container->get('doctrine')->getManager();
+        $tourImages = $tour->getTourImages()->toArray();
+        foreach($tourImages as $tourImage){
+            $em->remove($tourImage);
+        }
+        $em->flush();
+    }
+
+
+
+
+
 
 
 }
