@@ -458,25 +458,60 @@ class GPXIngest{
 		// Finalise the object stats - again take suppression into account
 
 		if (!$this->suppressdate){
-			$this->journey->stats->start = min($this->totaltimes);
-			$this->journey->stats->end = max($this->totaltimes);
+			if(is_array($this->totaltimes) && count($this->totaltimes) > 0){
+				$this->journey->stats->start = min($this->totaltimes);
+				$this->journey->stats->end = max($this->totaltimes);
+			} else {
+				$this->journey->stats->start = 0;
+				$this->journey->stats->end = 0;
+			}
+
 		}
 
 		if (!$this->suppressspeed){
-			$this->journey->stats->maxSpeed = max($this->highspeeds);
-			$this->journey->stats->minSpeed = min($this->lowspeeds);
-			$this->journey->stats->modalSpeed = array_search(max($modesearch),$modesearch);
-			$this->journey->stats->avgspeed = round(array_sum($this->journeyspeeds) / $this->journey->stats->trackpoints,2);
-			$this->journey->stats->maxacceleration = max($this->accels);
-			$this->journey->stats->maxdeceleration = max($this->decels);
-			$this->journey->stats->minacceleration = min($this->accels);
-			$this->journey->stats->mindeceleration = min($this->decels);
-			$this->journey->stats->avgacceleration = round(array_sum($this->accels)/count($this->accels),2);
-			$this->journey->stats->avgdeceleration = round(array_sum($this->decels)/count($this->accels),2);
+			if(is_array($this->highspeeds) && count($this->highspeeds) > 0){
+				$this->journey->stats->maxSpeed = max($this->highspeeds);
+				$this->journey->stats->minSpeed = min($this->lowspeeds);
+			} else {
+				$this->journey->stats->maxSpeed = 0;
+				$this->journey->stats->minSpeed = 0;
+			}
+			if(is_array($modesearch) && count($modesearch) > 0){
+				$this->journey->stats->modalSpeed = array_search(max($modesearch),$modesearch);
+			} else {
+				$this->journey->stats->modalSpeed = 0;
+			}
+
+			if($this->journey->stats->trackpoints > 0){
+				$this->journey->stats->avgspeed = round(array_sum($this->journeyspeeds) / $this->journey->stats->trackpoints,2);
+			} else {
+				$this->journey->stats->avgspeed = 0;
+			}
+
+			if(is_array($this->accels) && count($this->accels) > 0){
+				$this->journey->stats->maxacceleration = max($this->accels);
+				$this->journey->stats->maxdeceleration = max($this->decels);
+				$this->journey->stats->minacceleration = min($this->accels);
+				$this->journey->stats->mindeceleration = min($this->decels);
+			} else {
+				$this->journey->stats->maxacceleration = 0;
+				$this->journey->stats->maxdeceleration = 0;
+				$this->journey->stats->minacceleration = 0;
+				$this->journey->stats->mindeceleration = 0;
+			}
+
+			if(count($this->accels) > 0){
+				$this->journey->stats->avgacceleration = round(array_sum($this->accels)/count($this->accels),2);
+				$this->journey->stats->avgdeceleration = round(array_sum($this->decels)/count($this->accels),2);
+			} else {
+				$this->journey->stats->avgacceleration = 0;
+				$this->journey->stats->avgdeceleration = 0;
+			}
+
 
 		}
 
-		if (!$this->suppresselevation){
+		if (!$this->suppresselevation && isset($jkey)){
 			$this->journey->journeys->$jkey->segments->$segkey->stats->elevation = new \stdClass();
 			$this->journey->journeys->$jkey->segments->$segkey->stats->elevation->max = max($this->jeles);
 			$this->journey->journeys->$jkey->segments->$segkey->stats->elevation->min = min($this->jeles);
