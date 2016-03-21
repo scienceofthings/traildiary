@@ -40,6 +40,10 @@ class GpxFile
     private function getFirstSegmentOfFirstTrack()
     {
         if($this->firstSegment === null){
+            $trackIds = $this->gpxIngest->getTrackIds();
+            if(is_array($trackIds) && (count($trackIds) === 0)){
+                return new \stdClass();
+            }
             $idOfFirstTrack = $this->gpxIngest->getTrackIds()[0];
             $nameOfFirstSegment = $this->gpxIngest->getTrackSegmentNames($idOfFirstTrack)[0];
             $firstSegment = $this->gpxIngest->getSegment($idOfFirstTrack, $nameOfFirstSegment);
@@ -60,22 +64,28 @@ class GpxFile
     }
 
     /*
-     * @return string
+     * @return float
      */
     public function getLattitude()
     {
         $firstSegment = $this->getFirstSegmentOfFirstTrack();
+        if(!isset($firstSegment->points->trackpt0->lat)){
+            return 0;
+        }
         $lat = $firstSegment->points->trackpt0->lat;
         return $lat;
 
     }
 
     /*
-     * @return string
+     * @return float
      */
     public function getLongitude()
     {
         $firstSegment = $this->getFirstSegmentOfFirstTrack();
+        if(!isset($firstSegment->points->trackpt0->lon)){
+            return 0;
+        }
         $lon = $firstSegment->points->trackpt0->lon;
         return $lon;
 
