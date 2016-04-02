@@ -36,10 +36,13 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [MapBundle ]
+    bundles:
+      - MapBundle
+      - MopaBootstrapBundle
+      - BmatznerLeafletBundle
     #java: /usr/bin/java
     node: "/usr/bin/nodejs"
-    node_paths: [/usr/local/lib/node_modules/]
+    node_paths: [/usr/lib/node_modules/]
     filters:
         cssrewrite: ~
         less: ~
