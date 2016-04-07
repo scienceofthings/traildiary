@@ -13,5 +13,12 @@
 /web/css/
 /web/js/
 
+/* composer vendor packages */
+/deploy.php
+
+/* assets of symfony bundles */
+/web/media
+/web/uploads
+
 /* IDE files */
 .idea
