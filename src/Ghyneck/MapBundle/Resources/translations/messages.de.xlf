@@ -46,6 +46,10 @@
                 <source>backtolist</source>
                 <target state="translated">zurück zur Liste</target>
             </trans-unit>
+            <trans-unit id="12" approved="yes">
+                <source>showtrail</source>
+                <target state="translated">Trail anzeigen</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
