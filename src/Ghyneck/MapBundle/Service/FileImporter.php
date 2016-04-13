@@ -34,6 +34,7 @@ class FileImporter
         $uploadDestination = $this->getUploadDestination();
         $diaryFolderInfo = new \SplFileInfo($uploadDestination . DIRECTORY_SEPARATOR . $tour->getDirectory());
         $diaryFolder = new DiaryFolder($diaryFolderInfo);
+        $tour->removeTourImages();
         $this->addTourImages($tour, $diaryFolder, $tour->getDirectory());
         $this->setGpsInformation($tour, $diaryFolder);
     }
@@ -72,7 +73,6 @@ class FileImporter
      */
     protected function addTourImages(Tour $tour, DiaryFolder $diaryFolder, $prefix)
     {
-        $this->removeTourImages($tour);
         $images = $diaryFolder->getImageFiles();
         foreach($images as $image){
             $tourImage = new TourImage();
@@ -80,24 +80,4 @@ class FileImporter
             $tour->addImage($tourImage);
         }
     }
-
-    /*
- * @param Tour $tour
- */
-    protected function removeTourImages(Tour $tour)
-    {
-        $em = $this->container->get('doctrine')->getManager();
-        $tourImages = $tour->getTourImages()->toArray();
-        foreach($tourImages as $tourImage){
-            $em->remove($tourImage);
-        }
-        $em->flush();
-    }
-
-
-
-
-
-
-
 }
