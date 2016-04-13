@@ -5,17 +5,11 @@ $(function () {
             imagePath: null,            
             webPathToGpxFile: null,
             centerPoint: null,
-            // callbacks
-            change: null,
-            random: null
         },        
         _create: function () {
-            var map = this._createMap(this.options.centerPoint);
+            this.map = this._createMap(this.options.centerPoint);
+            this._addMarkers();
             //this._drawTrack(map, this.options.webPathToGpxFile);
-        },
-        // called when created, and later when changing options
-        _refresh: function () {
-            this._trigger("change");
         },
         _drawTrack: function(map, webPathToGpxFile) {
             var customLayer = L.geoJson(null,{
@@ -33,6 +27,9 @@ $(function () {
                     maxZoom: 18
                 })
                 .addTo(map);
+            return map;
+        },
+        _addMarkers: function() {
             L.Icon.Default.imagePath = this.options.imagePath;
             var marker = L.marker(
                 [47.99366, 7.83992],
@@ -40,25 +37,8 @@ $(function () {
                     'title': 'erste Tour',
                     'alt': 'alt-Text erste Tour'
                 }
-            ).addTo(map);
-            marker.bindPopup("<b>Hello world!</b><br>I am a popup.<a href='http://www.google.de'>Google</a>").openPopup();
-
-            return map;
-        },
-        // _setOptions is called with a hash of all options that are changing
-        // always refresh when changing options
-        _setOptions: function () {
-        // _super and _superApply handle keeping the right this-context
-            this._superApply(arguments);
-            this._refresh();
-        },
-        // _setOption is called for each individual option that is changing
-        _setOption: function (key, value) {
-        // prevent invalid color values
-            if (/red|green|blue/.test(key) && (value < 0 || value > 255)) {
-                return;
-            }
-            this._super(key, value);
+            ).addTo(this.map);
+            marker.bindPopup("<b>Hello world!</b><br>I am a popup.<a href='http://www.google.de'>Goossgle</a>").openPopup();
         }
     });
 });
