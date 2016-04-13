@@ -12,35 +12,12 @@ class DefaultController extends Controller
     
             
     public function indexAction()
-    {                                  
-        return $this->render('MapBundle:Default:index.html.twig', array());
-    }        
-
-    protected function getTracks()
-    {                        
-        $tours = $this->getDoctrine()
-                ->getRepository('MapBundle:Tour')
-                ->findAll();
-        if (!$tours) {
-            throw $this->createNotFoundException(
-                    'No tours found'
-            );
-        }
-
-        $gpxFile = $tours[0]->getGpxFile();
-        $fileName = $gpxFile->getFileName();
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('MapBundle:Tour')->findAll();
         
-        
-        $gpx = new GPXIngest();
-        $gpx->loadFile('/var/www/symfony/playground/web/uploads/documents/' . $fileName);
-        $gpx->ingest(); 
-        $trackPoints = $gpx->getSegment('journey0','seg0')->points;        
-        $trackPointsInLeafletFormat = "[";
-        foreach($trackPoints as $trackPoint){
-            $trackPointsInLeafletFormat .= sprintf("new L.LatLng(%s,%s),", $trackPoint->lat, $trackPoint->lon);
-        }        
-        $trackPointsInLeafletFormat .= "]";
-        return $trackPointsInLeafletFormat;
-           
+        return $this->render('MapBundle:Default:index.html.twig', array(
+            'entities' => $entities,
+        ));
     }
 }
