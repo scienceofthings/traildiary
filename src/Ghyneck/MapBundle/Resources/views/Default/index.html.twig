@@ -1,21 +1,22 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Show Map{% endblock %}
+{% block title %}
+    {% trans %}edittour{% endtrans %}
+{% endblock %}
 
 
 {% block headline %}
-    Karte
+    {% trans %}map{% endtrans %}
 {% endblock headline %}
 
 {% block content_row %}
-    <div id="mapContainer" data-tracks="">
-        <div id="map">
+    <div class="row margin-bottom">
+        <div class="col-md-12">
+            <div id="map">
+                <noscript><p>{% trans %}javascriptisrequiredformap{% endtrans %}</p></noscript>
+            </div>
         </div>
     </div>
-
-    <a href="{{ path('category') }}">
-        Alle zeigen
-    </a>
 {% endblock content_row %}
 
 {% block foot_script_assetic %}
@@ -30,8 +31,16 @@
     {% endjavascripts %}
 
     {# own JS #}
-    {% javascripts '@MapBundle/Resources/public/js/mapWidget.js' %}
+    {% javascripts '@MapBundle/Resources/public/js/showTrailsWidget.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#map").showtrailswidget({
+                "centerPoint" : {lat:'47.99366',lon:'7.83992'},
+                "imagePath": "{{ asset('bundles/map/images/') }}"
+            });
+        });
+    </script>
 {% endblock foot_script_assetic %}
