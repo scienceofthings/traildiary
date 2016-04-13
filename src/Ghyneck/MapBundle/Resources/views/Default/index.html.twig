@@ -36,10 +36,25 @@
     {% endjavascripts %}
 
     <script type="text/javascript">
+
+        {% if entities|length > 0 %}
+            var GhyneckMapBundleTours = [];
+            {% for entity in entities %}
+                GhyneckMapBundleTours.push({
+                    'title': '{{ entity.title }}',
+                    'link': 'http://www.google.de',
+                    'markerText' : "{{ entity.title }} <br/> <a href='{{ path('tour_show', { 'id': entity.id }) }}' target='_blank'>{% trans %}showtrail{% endtrans %}</a>",
+                    'lat': {{ entity.markerlat }},
+                    'lon': {{ entity.markerlon }},
+                });
+            {% endfor %}
+        {% endif %}
+
         $(document).ready(function () {
             $("#map").showtrailswidget({
                 "centerPoint" : {lat:'47.99366',lon:'7.83992'},
-                "imagePath": "{{ asset('bundles/map/images/') }}"
+                "imagePath": "{{ asset('bundles/map/images/') }}",
+                "tours": GhyneckMapBundleTours
             });
         });
     </script>

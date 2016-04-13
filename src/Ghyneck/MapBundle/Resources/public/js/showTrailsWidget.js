@@ -5,10 +5,11 @@ $(function () {
             imagePath: null,            
             webPathToGpxFile: null,
             centerPoint: null,
+            tours: null
         },        
         _create: function () {
             this.map = this._createMap(this.options.centerPoint);
-            this._addMarkers();
+            this._addMarkers(this.options.tours);
             //this._drawTrack(map, this.options.webPathToGpxFile);
         },
         _drawTrack: function(map, webPathToGpxFile) {
@@ -29,16 +30,20 @@ $(function () {
                 .addTo(map);
             return map;
         },
-        _addMarkers: function() {
+        _addMarkers: function(tours) {
             L.Icon.Default.imagePath = this.options.imagePath;
-            var marker = L.marker(
-                [47.99366, 7.83992],
-                {
-                    'title': 'erste Tour',
-                    'alt': 'alt-Text erste Tour'
-                }
-            ).addTo(this.map);
-            marker.bindPopup("<b>Hello world!</b><br>I am a popup.<a href='http://www.google.de'>Goossgle</a>").openPopup();
+            for(i = 0; i < tours.length; i++){
+                var tour = tours[i];
+                var marker = L.marker(
+                    [tour.lat, tour.lon],
+                    {
+                        'title': tour.title,
+                    }
+                ).addTo(this.map);
+                marker.bindPopup(tour.markerText).openPopup();
+            }
+
+
         }
     });
 });
