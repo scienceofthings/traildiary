@@ -3,7 +3,6 @@ namespace Ghyneck\MapBundle\Helper;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Ghyneck\MapBundle\Helper\GPXIngest;
 
 class GpxFile
 {
@@ -16,12 +15,11 @@ class GpxFile
     /*
      * @var GpxIngest
      */
-    protected $gpxIngest;
+    protected $gpxData;
 
-    /*
-     * @var stdClass
-     */
-    protected $firstSegment;
+    protected $latitude;
+
+    protected $longitude;
 
     /*
      * @param SplFileInfo $file
@@ -29,28 +27,16 @@ class GpxFile
     public function __construct(SplFileInfo $file)
     {
         $this->file = $file;
-        $this->gpxIngest = new GPXIngest();
-        $this->gpxIngest->loadFile($this->file->getRealPath());
-        $this->gpxIngest->ingest();
+        $this->gpxData = simplexml_load_file($this->file->getRealPath());
+        $this->setLattitudeAndLongitude();
     }
 
-    /*
-     * @return stdClass
-     */
-    private function getFirstSegmentOfFirstTrack()
+    private function setLattitudeAndLongitude()
     {
-        if($this->firstSegment === null){
-            $trackIds = $this->gpxIngest->getTrackIds();
-            if(is_array($trackIds) && (count($trackIds) === 0)){
-                return new \stdClass();
-            }
-            $idOfFirstTrack = $this->gpxIngest->getTrackIds()[0];
-            $nameOfFirstSegment = $this->gpxIngest->getTrackSegmentNames($idOfFirstTrack)[0];
-            $firstSegment = $this->gpxIngest->getSegment($idOfFirstTrack, $nameOfFirstSegment);
-            $this->firstSegment = $firstSegment;
+        if($this->latitude === null || $this->longitude === null){
+            $this->latitude = (string) $this->gpxData->trk[0]->trkseg[0]->trkpt[0]['lat'];
+            $this->longitude = (string) $this->gpxData->trk[0]->trkseg[0]->trkpt[0]['lon'];
         }
-        return $this->firstSegment;
-
     }
 
     /*
@@ -68,12 +54,7 @@ class GpxFile
      */
     public function getLattitude()
     {
-        $firstSegment = $this->getFirstSegmentOfFirstTrack();
-        if(!isset($firstSegment->points->trackpt0->lat)){
-            return 0;
-        }
-        $lat = $firstSegment->points->trackpt0->lat;
-        return $lat;
+        return $this->latitude;
 
     }
 
@@ -82,12 +63,7 @@ class GpxFile
      */
     public function getLongitude()
     {
-        $firstSegment = $this->getFirstSegmentOfFirstTrack();
-        if(!isset($firstSegment->points->trackpt0->lon)){
-            return 0;
-        }
-        $lon = $firstSegment->points->trackpt0->lon;
-        return $lon;
+        return $this->longitude;
 
     }
 
