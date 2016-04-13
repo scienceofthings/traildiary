@@ -257,6 +257,17 @@ class Tour
     }
 
     /**
+     * Remove all tourImages
+     *
+     */
+    public function removeTourImages()
+    {
+        foreach($this->getTourImages() as $tourImage){
+            $this->removeTourImage($tourImage);
+        }
+    }
+
+    /**
      * Get tourImages
      *
      * @return \Doctrine\Common\Collections\Collection
