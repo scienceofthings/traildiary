@@ -15,10 +15,6 @@ class TourRepository extends EntityRepository
     
     public function findAll()
     {
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT t FROM MapBundle:Tour t'
-            )
-            ->getResult();
+        return $this->findBy(array(), array('title' => 'ASC'));
     }
 }
