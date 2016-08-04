@@ -32,32 +32,53 @@ class ImportMediaCommand extends ContainerAwareCommand
         ;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        try{
+            $this->importMedia($input);
+            $output->writeln("Media was imported.");
+        } catch (\InvalidArgumentException $exception){
+            $output->writeln($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param InputInterface $input
+     *
+     * @throws \InvalidArgumentExceptiongit f
+     */
+    private function importMedia(InputInterface $input)
     {
         $uploadDestination = $this->getUploadDestination();
 
         if ($input->getOption('all')) {
             $this->importAllDirectories($uploadDestination);
-            $output->writeln("All directories imported.");
-            return;
         }
 
         $directory = $input->getArgument('directory');
-        if ($directory) {
+        if (is_string($directory) && !empty($directory)) {
             $this->importDirectory($directory);
-            $output->writeln("Directory $directory imported.");
         } else {
-            $output->writeln("Please specify a directory as argument or set --all to import all directories.");
+            throw new \InvalidArgumentException(
+                "Please specify a directory basepath (e.g. 'php app/console myTrail') as argument or " .
+                "set --all to import all directories."
+            );
         }
     }
 
     /*
-     * @return string
+     * @return string The upload folder from the configuration
      */
     protected function getUploadDestination()
     {
         $vichUploaderMappings = $this->getContainer()->getParameter('vich_uploader.mappings');
         $uploadDestination = $vichUploaderMappings['image']['upload_destination'];
+        if(!is_string($uploadDestination) || $uploadDestination === ''){
+            return '';
+        }
         return $uploadDestination;
     }
 
@@ -74,14 +95,19 @@ class ImportMediaCommand extends ContainerAwareCommand
 
     }
 
-    /*
-     * @param string $uploadDestination
+    /**
      * @param string $directory which directory to choose from all directories within $uploadDestination
+     *
+     * @throws \InvalidArgumentException When the specified directory does not exist
      */
     protected function importDirectory($directory)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $tour = $em->getRepository('MapBundle:Tour')->findOneByDirectory($directory);
+
+        if($tour === null){
+            throw new \InvalidArgumentException('There is no tour associated with this directory.');
+        }
 
         /** @var Ghyneck\MapBundle\Service\FileImporter $fileImporter */
         $fileImporter = $this->getContainer()->get('fileImporter');
@@ -90,5 +116,4 @@ class ImportMediaCommand extends ContainerAwareCommand
         $em->persist($tour);
         $em->flush();
     }
-
 }
