@@ -15,5 +15,6 @@ Ghyneck\MapBundle\Entity\Category:
     lifecycleCallbacks: {  }
     oneToMany:
             tours:
+                orderBy: { 'title': 'ASC' }
                 targetEntity: Tour
                 mappedBy: category
