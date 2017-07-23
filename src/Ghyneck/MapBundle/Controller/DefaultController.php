@@ -3,9 +3,6 @@
 namespace Ghyneck\MapBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Ghyneck\MapBundle\Entity\Tour;
-use Ghyneck\MapBundle\Entity\Gpxfile;
-use Ghyneck\MapBundle\Helper\GPXIngest;
 
 class DefaultController extends Controller
 {
@@ -18,6 +15,7 @@ class DefaultController extends Controller
         
         return $this->render('MapBundle:Default:index.html.twig', array(
             'entities' => $entities,
+            'ghyneck_map_url' => $this->container->getParameter('ghyneck_map.map.url')
         ));
     }
 }

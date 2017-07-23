@@ -5,12 +5,13 @@ $(function () {
             imagePath: null,            
             webPathToGpxFile: null,
             centerPoint: null,
+            mapUrl: '',
             // callbacks
             change: null,
             random: null
         },        
         _create: function () {
-            var map = this._createMap(this.options.centerPoint);
+            var map = this._createMap(this.options.mapUrl, this.options.centerPoint);
             this._drawTrack(map, this.options.webPathToGpxFile);
             //this._refresh();
         },
@@ -39,16 +40,16 @@ $(function () {
         },
         _drawTrack: function(map, webPathToGpxFile) {
             var customLayer = L.geoJson(null,{
-                style: function(feature) {
+                style: function() {
                     return { color: 'red' };
                 }
             });
             omnivore.gpx(webPathToGpxFile, null, customLayer).addTo(map);
         },
-        _createMap: function(centerPoint) {
+        _createMap: function(mapUrl, centerPoint) {
             var map = L.map(this.options.mapId).setView([centerPoint.lat, centerPoint.lon], 13);
             L.tileLayer(
-                'http://b.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+                mapUrl, {
                     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
                     maxZoom: 18
                 })

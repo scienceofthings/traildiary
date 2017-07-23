@@ -104,6 +104,7 @@ class TourController extends Controller
         return $this->render('MapBundle:Tour:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'ghyneck_map_url' => $this->container->getParameter('ghyneck_map.map.url')
         ));
     }
 
@@ -113,13 +114,7 @@ class TourController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('MapBundle:Tour')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tour entity.');
-        }
+        $entity = $this->getTour($id);
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -129,6 +124,27 @@ class TourController extends Controller
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * @param $id
+     *
+     * @return Tour
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    private function getTour($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('MapBundle:Tour')->find($id);
+
+        /** @var Tour */
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tour entity.');
+        }
+        return $entity;
+
     }
 
     /**

@@ -45,7 +45,7 @@
                     'link': 'http://www.google.de',
                     'markerText' : "{{ entity.title }} <br/> <a href='{{ path('tour_show', { 'id': entity.id }) }}' target='_blank'>{% trans %}showtrail{% endtrans %}</a>",
                     'lat': {{ entity.markerlat }},
-                    'lon': {{ entity.markerlon }},
+                    'lon': {{ entity.markerlon }}
                 });
             {% endfor %}
         {% endif %}
@@ -54,7 +54,8 @@
             $("#map").showtrailswidget({
                 "centerPoint" : {lat:'47.99366',lon:'7.83992'},
                 "imagePath": "{{ asset('bundles/map/images/') }}",
-                "tours": GhyneckMapBundleTours
+                "tours": GhyneckMapBundleTours,
+                "mapUrl": "{{ ghyneck_map_url }}"
             });
         });
     </script>
