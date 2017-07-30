@@ -110,3 +110,7 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [1170, 1170], mode: inset }
+
+map:
+    map:
+        url: 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=5797d74c81c040ba95d4a1a662d82cbf'
