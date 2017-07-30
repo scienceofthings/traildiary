@@ -1,36 +1,15 @@
 $(function () {
     $.widget("custom.showtrailswidget", {
         options: {
-            mapId: 'map',
-            imagePath: null,            
-            webPathToGpxFile: null,
-            centerPoint: null,
+            existingMapObject: null,
             tours: null,
-            mapUrl: ''
+            imagePath: null,
         },        
         _create: function () {
-            this.map = this._createMap(this.options.mapUrl, this.options.centerPoint);
-            this._addMarkers(this.options.tours);
+            this._addMarkers(this.options.existingMapObject, this.options.tours, this.options.imagePath);
         },
-        _createMap: function(mapUrl, centerPoint) {
-            var map = L.map(this.options.mapId, {
-                fullscreenControl: {
-                    pseudoFullscreen: true
-                }
-
-            });
-
-            map.setView([centerPoint.lat, centerPoint.lon], 10);
-            L.tileLayer(
-                mapUrl, {
-                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                    maxZoom: 18
-                })
-                .addTo(map);
-            return map;
-        },
-        _addMarkers: function(tours) {
-            L.Icon.Default.imagePath = this.options.imagePath;
+        _addMarkers: function(existingMapObject, tours, imagePath) {
+            L.Icon.Default.imagePath = imagePath;
             for(i = 0; i < tours.length; i++){
                 var tour = tours[i];
                 var marker = L.marker(
@@ -38,7 +17,7 @@ $(function () {
                     {
                         'title': tour.title
                     }
-                ).addTo(this.map);
+                ).addTo(existingMapObject);
                 marker.bindPopup(tour.markerText).openPopup();
             }
 

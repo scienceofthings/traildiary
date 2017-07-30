@@ -33,6 +33,10 @@
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
+    {% javascripts '@MapBundle/Resources/public/js/mapWidget.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
     {# own JS #}
     {% javascripts '@MapBundle/Resources/public/js/showTrailsWidget.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -54,11 +58,15 @@
         {% endif %}
 
         $(document).ready(function () {
-            $("#map").showtrailswidget({
+            $("#map").mapwidget({
                 "centerPoint" : {lat:'47.99366',lon:'7.83992'},
-                "imagePath": "{{ asset('bundles/map/images/') }}",
+                "mapUrl": "{{ ghyneck_map_url }}",
+                "zoom": 10
+            });
+            $("#map").showtrailswidget({
+                "existingMapObject" : $("#map").data("custom-mapwidget").getMap(),
                 "tours": GhyneckMapBundleTours,
-                "mapUrl": "{{ ghyneck_map_url }}"
+                "imagePath": "{{ asset('bundles/map/images/') }}"
             });
         });
     </script>
