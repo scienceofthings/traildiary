@@ -13,7 +13,14 @@ $(function () {
             this._addMarkers(this.options.tours);
         },
         _createMap: function(mapUrl, centerPoint) {
-            var map = L.map(this.options.mapId).setView([centerPoint.lat, centerPoint.lon], 10);
+            var map = L.map(this.options.mapId, {
+                fullscreenControl: {
+                    pseudoFullscreen: true
+                }
+
+            });
+
+            map.setView([centerPoint.lat, centerPoint.lon], 10);
             L.tileLayer(
                 mapUrl, {
                     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
