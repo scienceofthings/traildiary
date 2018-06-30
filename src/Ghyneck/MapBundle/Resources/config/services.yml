@@ -1,4 +1,0 @@
-services:
-#    map.example:
-#        class: Ghyneck\MapBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]

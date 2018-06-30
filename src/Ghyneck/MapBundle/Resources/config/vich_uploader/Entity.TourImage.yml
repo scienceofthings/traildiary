@@ -1,4 +1,0 @@
-Ghyneck\MapBundle\Entity\TourImage:
-    image:
-        mapping:           image
-        filename_property: fileName
