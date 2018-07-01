@@ -11,6 +11,7 @@
 </head>
 <body>
 
+{% block navbar %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{{ path('regions') }}">
         {% trans %}regions{% endtrans %}
@@ -30,9 +31,16 @@
         </ul>
     </div>
 </nav>
-
+{% endblock %}
 
 {% block body %}
+        <main role="main" class="container">
+            <div>
+                {% block container %}
+                {% endblock %}
+            </div>
+        </main>
+
 {% endblock %}
 
 {% block javascripts %}
