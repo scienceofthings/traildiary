@@ -58,6 +58,11 @@ class Trail
      */
     private $markerLongitude;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Region", inversedBy="trails")
+     */
+    private $region;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -179,6 +184,18 @@ class Trail
     public function setMarkerLongitude(float $markerLongitude): self
     {
         $this->markerLongitude = $markerLongitude;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Trail{% endblock %}
+
+{% block body %}
+    <h1>Edit Trail</h1>
+
+    {{ include('trail/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('trail_index') }}">back to list</a>
+
+    {{ include('trail/_delete_form.html.twig') }}
+{% endblock %}

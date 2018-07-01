@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trail{% endblock %}
+
+{% block body %}
+    <h1>Trail</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ trail.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ trail.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ trail.description }}</td>
+            </tr>
+            <tr>
+                <th>Directory</th>
+                <td>{{ trail.directory }}</td>
+            </tr>
+            <tr>
+                <th>GpxFileName</th>
+                <td>{{ trail.gpxFileName }}</td>
+            </tr>
+            <tr>
+                <th>GpxFile</th>
+                <td>{{ trail.gpxFile }}</td>
+            </tr>
+            <tr>
+                <th>MarkerLatitude</th>
+                <td>{{ trail.markerLatitude }}</td>
+            </tr>
+            <tr>
+                <th>MarkerLongitude</th>
+                <td>{{ trail.markerLongitude }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('trail_index') }}">back to list</a>
+
+    <a href="{{ path('trail_edit', {'id': trail.id}) }}">edit</a>
+
+    {{ include('trail/_delete_form.html.twig') }}
+{% endblock %}
