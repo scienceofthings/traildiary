@@ -6,6 +6,7 @@ use App\Entity\Trail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TrailType extends AbstractType
 {
@@ -15,10 +16,13 @@ class TrailType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('directory')
-            ->add('gpxFileName')
-            ->add('gpxFile')
-            ->add('markerLatitude')
-            ->add('markerLongitude')
+            ->add('region', 'entity', array(
+                'class' => 'Region',
+                'property' => 'title'))
+            ->add('region', EntityType::class, array(
+                'class' => \App\Entity\Region::class,
+                'choice_label' => 'title',
+            ))
         ;
     }
 
