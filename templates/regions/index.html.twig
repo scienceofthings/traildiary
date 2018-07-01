@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}
+    {{ controller_name }}!
+{% endblock %}
+
+
 
 {% block body %}
 <style>
@@ -9,7 +13,9 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>
+        {% trans %}regions{% endtrans %}
+    </h1>
 
     This friendly message is coming from:
     <ul>
