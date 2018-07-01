@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class RegionsController extends Controller
 {
     /**
-     * @Route("/regions", name="regions")
+     * @Route("/", name="regions")
      */
     public function index()
     {
