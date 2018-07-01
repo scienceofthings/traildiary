@@ -9,7 +9,7 @@ class MapController extends Controller
 {
 
     /**
-     * @Route("/map", name="map")
+     * @Route("/", name="map")
      */
     public function index()
     {
