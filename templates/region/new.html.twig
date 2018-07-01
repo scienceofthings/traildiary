@@ -3,9 +3,18 @@
 {% block title %}New Region{% endblock %}
 
 {% block body %}
-    <h1>Create new Region</h1>
+    <main role="main" class="container">
+    <div>
+
+    <h1>{% trans %}create_region{% endtrans %}</h1>
 
     {{ include('region/_form.html.twig') }}
 
-    <a href="{{ path('region_index') }}">back to list</a>
+    <a href="{{ path('region_index') }}">
+        {% trans %}back_to{% endtrans %}
+        {% trans %}regions{% endtrans %}
+    </a>
+
+    </div>
+    </main>
 {% endblock %}
