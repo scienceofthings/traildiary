@@ -25,7 +25,22 @@
             </tr>
             <tr>
                 <th>GpxFileName</th>
-                <td>{{ trail.gpxFileName }}</td>
+                <td>
+                    {% if trail.images %}
+                        <div class="row margin-bottom">
+                            <ul class="gallery">
+                                {% for image in trail.images %}
+                                    <li class="col-lg-4 col-md-4">
+                                        <img src="{{ absolute_url(trail.directory ~ "/" ~ image.fileName) }}" alt="Image"/>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+
+                    <a download={{ trail.gpxFileName }} href="{{ absolute_url( 'BaerenkopfMasevaux/BaerenkopfMasevaux.gpx') }}">Trail Download</a>
+                </td>
             </tr>
             <tr>
                 <th>GpxFile</th>
