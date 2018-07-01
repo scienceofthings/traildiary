@@ -12,7 +12,6 @@ class RegionsController extends Controller
      */
     public function index()
     {
-        return "geklappt Regions";
         return $this->render('regions/index.html.twig', [
             'controller_name' => 'RegionsController',
         ]);
