@@ -3,24 +3,26 @@
 {% block title %}Region{% endblock %}
 
 {% block container %}
-    <h1>Region</h1>
+    <h1>{{ region.title }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ region.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ region.title }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('region_index') }}">back to list</a>
+    {% if region.trails|length > 0 %}
+    <ul>
+        {% for trail in region.trails %}
+            <li>
+                <a href="{{ path('trail_show', { 'id': trail.id }) }}">{{ trail.title }}</a>
+            </li>
+        {% endfor %}
 
-    <a href="{{ path('region_edit', {'id': region.id}) }}">edit</a>
+    </ul>
+    {% else %}
+        {% trans %}no_regions_found{% endtrans %}
+    {% endif %}
+
+
+    <a class="btn btn-primary" href="{{ path('region_edit', {'id': region.id}) }}" role="button">
+        {% trans %}edit_region{% endtrans %}
+    </a>
 
     {{ include('region/_delete_form.html.twig') }}
 {% endblock %}

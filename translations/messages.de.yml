@@ -4,3 +4,9 @@ create_trail: Neuen Trail erstellen
 create_region: Neue Region erstellen
 back_to: Zurück zu
 save: Speichern
+no_regions_found: Keine Regionen gefunden
+no_trails_found: Keine Trails gefunden
+edit_trail: Trail bearbeiten
+delete_trail: trail löschen
+edit_region: Region Bearbeiten
+delete_region: Region löschen
